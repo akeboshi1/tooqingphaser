@@ -15,7 +15,6 @@
  * @property {(false|Phaser.Types.Loader.FileTypes.PackFileSection)} pack - Files to be loaded before the Scene begins.
  * @property {?(Phaser.Types.Cameras.Scene2D.JSONCamera|Phaser.Types.Cameras.Scene2D.JSONCamera[])} cameras - The Camera configuration object.
  * @property {Object.<string, string>} map - The Scene's Injection Map.
- * @property {Phaser.Types.Core.PhysicsConfig} physics - The physics configuration object for the Scene.
  * @property {Phaser.Types.Core.LoaderConfig} loader - The loader configuration object for the Scene.
  * @property {(false|*)} plugins - The plugin configuration object for the Scene.
  */

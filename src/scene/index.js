@@ -15,7 +15,6 @@ var Scene = {
 
     Events: require('./events'),
     GetPhysicsPlugins: require('./GetPhysicsPlugins'),
-    GetScenePlugins: require('./GetScenePlugins'),
     SceneManager: require('./SceneManager'),
     ScenePlugin: require('./ScenePlugin'),
     Settings: require('./Settings'),

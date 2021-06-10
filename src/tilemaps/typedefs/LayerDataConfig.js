@@ -19,7 +19,6 @@
  * @property {array} [indexes] - Tile ID index map.
  * @property {array} [collideIndexes] - Tile Collision ID index map.
  * @property {array} [callbacks] - An array of callbacks.
- * @property {array} [bodies] - An array of physics bodies.
  * @property {array} [data] - An array of the tile data indexes.
  * @property {Phaser.Tilemaps.TilemapLayer} [tilemapLayer] - A reference to the Tilemap layer that owns this data.
  */

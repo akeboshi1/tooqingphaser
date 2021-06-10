@@ -6,7 +6,7 @@
 
 /**
  * The Default Plugins.
- * 
+ *
  * @namespace Phaser.Plugins.DefaultPlugins
  * @memberof Phaser.Plugins
  * @since 3.0.0
@@ -87,14 +87,14 @@ var DefaultPlugins = {
 
 };
 
-if (typeof PLUGIN_CAMERA3D)
-{
-    DefaultPlugins.DefaultScene.push('CameraManager3D');
-}
-
-if (typeof PLUGIN_FBINSTANT)
-{
-    DefaultPlugins.Global.push('facebook');
-}
+// if (typeof PLUGIN_CAMERA3D)
+// {
+//     DefaultPlugins.DefaultScene.push('CameraManager3D');
+// }
+//
+// if (typeof PLUGIN_FBINSTANT)
+// {
+//     DefaultPlugins.Global.push('facebook');
+// }
 
 module.exports = DefaultPlugins;

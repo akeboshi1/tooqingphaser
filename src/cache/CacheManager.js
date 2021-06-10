@@ -67,14 +67,14 @@ var CacheManager = new Class({
          */
         this.json = new BaseCache();
 
-        /**
-         * A Cache storing all physics data files, typically added via the Loader.
-         *
-         * @name Phaser.Cache.CacheManager#physics
-         * @type {Phaser.Cache.BaseCache}
-         * @since 3.0.0
-         */
-        this.physics = new BaseCache();
+        // /**
+        //  * A Cache storing all physics data files, typically added via the Loader.
+        //  *
+        //  * @name Phaser.Cache.CacheManager#physics
+        //  * @type {Phaser.Cache.BaseCache}
+        //  * @since 3.0.0
+        //  */
+        // this.physics = new BaseCache();
 
         /**
          * A Cache storing all shader source files, typically added via the Loader.
@@ -196,7 +196,6 @@ var CacheManager = new Class({
             'binary',
             'bitmapFont',
             'json',
-            'physics',
             'shader',
             'audio',
             'video',

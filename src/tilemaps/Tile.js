@@ -301,14 +301,14 @@ var Tile = new Class({
          */
         this.tint = 0xffffff;
 
-        /**
-         * An empty object where physics-engine specific information (e.g. bodies) may be stored.
-         *
-         * @name Phaser.Tilemaps.Tile#physics
-         * @type {object}
-         * @since 3.0.0
-         */
-        this.physics = {};
+        // /**
+        //  * An empty object where physics-engine specific information (e.g. bodies) may be stored.
+        //  *
+        //  * @name Phaser.Tilemaps.Tile#physics
+        //  * @type {object}
+        //  * @since 3.0.0
+        //  */
+        // this.physics = {};
     },
 
     /**

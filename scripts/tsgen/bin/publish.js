@@ -19,8 +19,7 @@ function publish(data, opts) {
         fs.mkdirSync(opts.destination);
     }
     var out = new Parser_1.Parser(data().get()).emit();
-    fs.writeFileSync(path.join(opts.destination, 'phaser.d.ts'), out);
+    fs.writeFileSync(path.join(opts.destination, 'tooqingphaser.d.ts'), out);
 }
 exports.publish = publish;
 ;
-//# sourceMappingURL=publish.js.map

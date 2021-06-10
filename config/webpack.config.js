@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const exec = require('child_process').exec;
-
+const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
     mode: 'development',
 
@@ -23,6 +23,30 @@ module.exports = {
         umdNamedDefine: true,
         globalObject: 'this'
     },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                sourceMap: true,
+                terserOptions: {
+                    ecma: undefined,
+                    warnings: false,
+                    parse: {},
+                    compress: {},
+                    mangle: true, // Note `mangle.properties` is `false` by default.
+                    module: false,
+                    output: null,
+                    toplevel: false,
+                    nameCache: null,
+                    ie8: false,
+                    keep_classnames: true,
+                    keep_fnames: true,
+                    safari10: false,
+                },
+            }),
+        ],
+    },
+
 
     performance: { hints: false },
 
@@ -31,9 +55,9 @@ module.exports = {
             "typeof CANVAS_RENDERER": JSON.stringify(true),
             "typeof WEBGL_RENDERER": JSON.stringify(true),
             "typeof EXPERIMENTAL": JSON.stringify(true),
-            "typeof PLUGIN_3D": JSON.stringify(false),
-            "typeof PLUGIN_CAMERA3D": JSON.stringify(false),
-            "typeof PLUGIN_FBINSTANT": JSON.stringify(false),
+            // "typeof PLUGIN_3D": JSON.stringify(false),
+            // "typeof PLUGIN_CAMERA3D": JSON.stringify(false),
+            // "typeof PLUGIN_FBINSTANT": JSON.stringify(false),
             "typeof FEATURE_SOUND": JSON.stringify(true)
         }),
         {

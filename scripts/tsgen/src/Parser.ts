@@ -30,7 +30,7 @@ export class Parser {
         this.topLevel.push(dom.create.alias('integer', dom.type.number));
 
         // add declare module
-        const phaserPkgModuleDOM = dom.create.module('phaser');
+        const phaserPkgModuleDOM = dom.create.module('tooqingphaser');
 
         phaserPkgModuleDOM.members.push(dom.create.exportEquals('Phaser'));
 
@@ -41,7 +41,7 @@ export class Parser {
 
         let ignored = [];
 
-        let result = '/// <reference types="./matter" />\n\n';
+        let result = ""; // '/// <reference types="./matter" />\n\n';
 
         result = result.concat(this.topLevel.reduce((out: string, obj: dom.TopLevelDeclaration) => {
             return out + dom.emit(obj);
@@ -95,8 +95,6 @@ export class Parser {
                 //  Because, sod you TypeScript
                 case 'Phaser.BlendModes':
                 case 'Phaser.ScaleModes':
-                case 'Phaser.Physics.Impact.TYPE':
-                case 'Phaser.Physics.Impact.COLLIDES':
                 case 'Phaser.Scale.Center':
                 case 'Phaser.Scale.Orientation':
                 case 'Phaser.Scale.ScaleModes':
@@ -541,7 +539,7 @@ export class Parser {
         if (name === 'float') return 'number';
         if (name === 'function') return 'Function';
         if (name === 'Array.<function()>') return 'Function[]';
-        if (name === 'array') return 'any[]';
+        if (name === 'array' || name === 'Array') return 'any[]';
 
         if (name.startsWith('Array<')) {
             let matches = name.match(/^Array<(.*)>$/);

@@ -235,41 +235,41 @@ var Scene = new Class({
          */
         this.tweens;
 
-        /**
-         * The Scene Arcade Physics Plugin.
-         *
-         * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
-         *
-         * @name Phaser.Scene#physics
-         * @type {Phaser.Physics.Arcade.ArcadePhysics}
-         * @since 3.0.0
-         */
-        this.physics;
-
-        /**
-         * The Scene Matter Physics Plugin.
-         *
-         * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
-         *
-         * @name Phaser.Scene#matter
-         * @type {Phaser.Physics.Matter.MatterPhysics}
-         * @since 3.0.0
-         */
-        this.matter;
-
-        if (typeof PLUGIN_FBINSTANT)
-        {
-            /**
-             * The Facebook Instant Games Plugin.
-             *
-             * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
-             *
-             * @name Phaser.Scene#facebook
-             * @type {Phaser.FacebookInstantGamesPlugin}
-             * @since 3.12.0
-             */
-            this.facebook;
-        }
+        // /**
+        //  * The Scene Arcade Physics Plugin.
+        //  *
+        //  * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
+        //  *
+        //  * @name Phaser.Scene#physics
+        //  * @type {Phaser.Physics.Arcade.ArcadePhysics}
+        //  * @since 3.0.0
+        //  */
+        // this.physics;
+        //
+        // /**
+        //  * The Scene Matter Physics Plugin.
+        //  *
+        //  * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
+        //  *
+        //  * @name Phaser.Scene#matter
+        //  * @type {Phaser.Physics.Matter.MatterPhysics}
+        //  * @since 3.0.0
+        //  */
+        // this.matter;
+        //
+        // if (typeof PLUGIN_FBINSTANT)
+        // {
+        //     /**
+        //      * The Facebook Instant Games Plugin.
+        //      *
+        //      * This property will only be available if defined in the Scene Injection Map, the plugin is installed and configured.
+        //      *
+        //      * @name Phaser.Scene#facebook
+        //      * @type {Phaser.FacebookInstantGamesPlugin}
+        //      * @since 3.12.0
+        //      */
+        //     this.facebook;
+        // }
 
         /**
          * A reference to the global Scale Manager.

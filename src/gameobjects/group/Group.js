@@ -32,9 +32,6 @@ var Sprite = require('../sprite/Sprite');
  * @param {Phaser.Scene} scene - The scene this group belongs to.
  * @param {(Phaser.GameObjects.GameObject[]|Phaser.Types.GameObjects.Group.GroupConfig|Phaser.Types.GameObjects.Group.GroupCreateConfig)} [children] - Game Objects to add to this group; or the `config` argument.
  * @param {Phaser.Types.GameObjects.Group.GroupConfig|Phaser.Types.GameObjects.Group.GroupCreateConfig} [config] - Settings for this group. If `key` is set, Phaser.GameObjects.Group#createMultiple is also called with these settings.
- *
- * @see Phaser.Physics.Arcade.Group
- * @see Phaser.Physics.Arcade.StaticGroup
  */
 var Group = new Class({
 

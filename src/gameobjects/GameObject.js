@@ -187,7 +187,7 @@ var GameObject = new Class({
          * If this Game Object is enabled for Arcade or Matter Physics then this property will contain a reference to a Physics Body.
          *
          * @name Phaser.GameObjects.GameObject#body
-         * @type {?(Phaser.Physics.Arcade.Body|Phaser.Physics.Arcade.StaticBody|MatterJS.BodyType)}
+         * @type {?object}
          * @default null
          * @since 3.0.0
          */

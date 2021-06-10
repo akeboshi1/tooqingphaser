@@ -456,15 +456,15 @@ var Config = new Class({
          */
         this.postBoot = GetValue(config, 'callbacks.postBoot', NOOP);
 
-        /**
-         * @const {Phaser.Types.Core.PhysicsConfig} Phaser.Core.Config#physics - The Physics Configuration object.
-         */
-        this.physics = GetValue(config, 'physics', {});
-
-        /**
-         * @const {(boolean|string)} Phaser.Core.Config#defaultPhysicsSystem - The default physics system. It will be started for each scene. Either 'arcade', 'impact' or 'matter'.
-         */
-        this.defaultPhysicsSystem = GetValue(this.physics, 'default', false);
+        // /**
+        //  * @const {Phaser.Types.Core.PhysicsConfig} Phaser.Core.Config#physics - The Physics Configuration object.
+        //  */
+        // this.physics = GetValue(config, 'physics', {});
+        //
+        // /**
+        //  * @const {(boolean|string)} Phaser.Core.Config#defaultPhysicsSystem - The default physics system. It will be started for each scene. Either 'arcade', 'impact' or 'matter'.
+        //  */
+        // this.defaultPhysicsSystem = GetValue(this.physics, 'default', false);
 
         /**
          * @const {string} Phaser.Core.Config#loaderBaseURL - A URL used to resolve paths given to the loader. Example: 'http://labs.phaser.io/assets/'.

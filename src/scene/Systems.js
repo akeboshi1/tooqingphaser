@@ -8,7 +8,6 @@ var Class = require('../utils/Class');
 var CONST = require('./const');
 var DefaultPlugins = require('../plugins/DefaultPlugins');
 var Events = require('./events');
-var GetPhysicsPlugins = require('./GetPhysicsPlugins');
 var GetScenePlugins = require('./GetScenePlugins');
 var GLOBAL_CONST = require('../const');
 var NOOP = require('../utils/NOOP');
@@ -63,17 +62,17 @@ var Systems = new Class({
          */
         this.renderer;
 
-        if (typeof PLUGIN_FBINSTANT)
-        {
-            /**
-             * The Facebook Instant Games Plugin.
-             *
-             * @name Phaser.Scenes.Systems#facebook
-             * @type {Phaser.FacebookInstantGamesPlugin}
-             * @since 3.12.0
-             */
-            this.facebook;
-        }
+        // if (typeof PLUGIN_FBINSTANT)
+        // {
+        //     /**
+        //      * The Facebook Instant Games Plugin.
+        //      *
+        //      * @name Phaser.Scenes.Systems#facebook
+        //      * @type {Phaser.FacebookInstantGamesPlugin}
+        //      * @since 3.12.0
+        //      */
+        //     this.facebook;
+        // }
 
         /**
          * The Scene Configuration object, as passed in when creating the Scene.
@@ -334,7 +333,7 @@ var Systems = new Class({
 
         this.plugins = pluginManager;
 
-        pluginManager.addToScene(this, DefaultPlugins.Global, [ DefaultPlugins.CoreScene, GetScenePlugins(this), GetPhysicsPlugins(this) ]);
+        pluginManager.addToScene(this, DefaultPlugins.Global, [ DefaultPlugins.CoreScene, GetScenePlugins(this) ]);
 
         this.events.emit(Events.BOOT, this);
 

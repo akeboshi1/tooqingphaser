@@ -26,7 +26,6 @@
  * @property {Phaser.Types.Core.CallbacksConfig} [callbacks] - Optional callbacks to run before or after game boot.
  * @property {Phaser.Types.Core.LoaderConfig} [loader] - Loader configuration.
  * @property {Phaser.Types.Core.ImagesConfig} [images] - Images configuration.
- * @property {Phaser.Types.Core.PhysicsConfig} [physics] - Physics configuration.
  * @property {Phaser.Types.Core.PluginObject|Phaser.Types.Core.PluginObjectItem[]} [plugins] - Plugins to install.
  * @property {Phaser.Types.Core.ScaleConfig} [scale] - The Scale Manager configuration.
  * @property {Phaser.Types.Core.AudioConfig} [audio] - The Audio Configuration object.

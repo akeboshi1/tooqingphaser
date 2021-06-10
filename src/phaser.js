@@ -32,7 +32,8 @@ var Phaser = {
     Input: require('./input'),
     Loader: require('./loader'),
     Math: require('./math'),
-    Physics: require('./physics'),
+
+    // Physics: require('./physics'),
     Plugins: require('./plugins'),
     Renderer: require('./renderer'),
     Scale: require('./scale'),
@@ -50,23 +51,23 @@ var Phaser = {
 
 //  Merge in the optional plugins and WebGL only features
 
-if (typeof FEATURE_SOUND)
-{
-    Phaser.Sound = require('./sound');
-}
-
-if (typeof PLUGIN_CAMERA3D)
-{
-    Phaser.Cameras.Sprite3D = require('../plugins/camera3d/src');
-    Phaser.GameObjects.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3D');
-    Phaser.GameObjects.Factories.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3DFactory');
-    Phaser.GameObjects.Creators.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3DCreator');
-}
-
-if (typeof PLUGIN_FBINSTANT)
-{
-    Phaser.FacebookInstantGamesPlugin = require('../plugins/fbinstant/src/FacebookInstantGamesPlugin');
-}
+// if (typeof FEATURE_SOUND)
+// {
+//     Phaser.Sound = require('./sound');
+// }
+//
+// if (typeof PLUGIN_CAMERA3D)
+// {
+//     Phaser.Cameras.Sprite3D = require('../plugins/camera3d/src');
+//     Phaser.GameObjects.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3D');
+//     Phaser.GameObjects.Factories.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3DFactory');
+//     Phaser.GameObjects.Creators.Sprite3D = require('../plugins/camera3d/src/sprite3d/Sprite3DCreator');
+// }
+//
+// if (typeof PLUGIN_FBINSTANT)
+// {
+//     Phaser.FacebookInstantGamesPlugin = require('../plugins/fbinstant/src/FacebookInstantGamesPlugin');
+// }
 
 //   Merge in the consts
 

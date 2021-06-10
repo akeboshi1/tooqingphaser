@@ -253,7 +253,7 @@ var Layer = new Class({
          * shape as a Game Object. You cannot give a Layer a physics body.
          *
          * @name Phaser.GameObjects.Layer#body
-         * @type {?(Phaser.Physics.Arcade.Body|Phaser.Physics.Arcade.StaticBody|MatterJS.BodyType)}
+         * @type {?object}
          * @default null
          * @since 3.51.0
          */

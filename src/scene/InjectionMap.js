@@ -39,22 +39,22 @@ var InjectionMap = {
     input: 'input',
     load: 'load',
     time: 'time',
-    tweens: 'tweens',
+    tweens: 'tweens'
 
-    arcadePhysics: 'physics',
-    impactPhysics: 'impact',
-    matterPhysics: 'matter'
+    // arcadePhysics: 'physics',
+    // impactPhysics: 'impact',
+    // matterPhysics: 'matter'
 
 };
 
-if (typeof PLUGIN_CAMERA3D)
-{
-    InjectionMap.cameras3d = 'cameras3d';
-}
-
-if (typeof PLUGIN_FBINSTANT)
-{
-    InjectionMap.facebook = 'facebook';
-}
+// if (typeof PLUGIN_CAMERA3D)
+// {
+//     InjectionMap.cameras3d = 'cameras3d';
+// }
+//
+// if (typeof PLUGIN_FBINSTANT)
+// {
+//     InjectionMap.facebook = 'facebook';
+// }
 
 module.exports = InjectionMap;
