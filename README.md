@@ -1,3 +1,14 @@
+# 项目实际地址：https://github.com/ApowoGames/phaser
+# clone地址：git@github.com:ApowoGames/phaser.git
+
+# 更新步骤：
+
+1. git fetch upstream
+2. git merge upstream/master
+3. git commit ...
+4. git push
+5. git push gitlab master
+
 # Phaser - HTML5 Game Framework
 
 ![Phaser Header](https://phaser.io/images/github/300/phaser-header.png "Phaser 3 Header Banner")
