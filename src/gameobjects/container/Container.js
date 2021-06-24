@@ -472,7 +472,7 @@ var Container = new Class({
         {
             gameObject.parentContainer = null;
 
-            gameObject.addToDisplayList();
+            // gameObject.addToDisplayList();
         }
     },
 
