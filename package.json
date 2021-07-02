@@ -2,7 +2,7 @@
     "name": "tooqingphaser",
     "version": "0.3.7",
     "description": "tooqingphaser",
-    "main": "./dist/phaser.min.js",
+    "main": "./dist/phaser.js",
     "types": "./types/tooqingphaser.d.ts",
     "author": "tooqing",
     "license": "MIT",
