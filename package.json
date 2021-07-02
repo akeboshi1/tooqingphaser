@@ -1,6 +1,6 @@
 {
     "name": "tooqingphaser",
-    "version": "0.3.7",
+    "version": "0.3.8",
     "description": "tooqingphaser",
     "main": "./dist/phaser.js",
     "types": "./types/tooqingphaser.d.ts",
