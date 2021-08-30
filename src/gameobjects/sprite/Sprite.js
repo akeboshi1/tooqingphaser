@@ -463,7 +463,10 @@ var Sprite = new Class({
      */
     preDestroy: function ()
     {
-        this.anims.destroy();
+        if (this.anims)
+        {
+            this.anims.destroy();
+        }
 
         this.anims = undefined;
     }
