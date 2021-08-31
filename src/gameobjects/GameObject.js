@@ -762,7 +762,11 @@ var GameObject = new Class({
      */
     removeFromDisplayList: function ()
     {
-        var displayList = this.displayList || this.scene.sys.displayList;
+        var displayList = this.displayList;
+        if (!displayList && this.scene && this.scene.sys)
+        {
+            displayList = this.scene.sys.displayList;
+        }
 
         if (displayList.exists(this))
         {
