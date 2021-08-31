@@ -774,12 +774,12 @@ var GameObject = new Class({
 
             displayList.queueDepthSort();
 
-            this.displayList = null;
-
-            this.emit(Events.REMOVED_FROM_SCENE, this, this.scene);
-
             displayList.events.emit(SceneEvents.REMOVED_FROM_SCENE, this, this.scene);
         }
+
+        this.displayList = null;
+
+        this.emit(Events.REMOVED_FROM_SCENE, this, this.scene);
 
         return this;
     },
