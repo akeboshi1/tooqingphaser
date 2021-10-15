@@ -92,7 +92,7 @@ var TilemapLayerWebGLRenderer = function (renderer, src, camera)
             src,
             texture,
             texture.width, texture.height,
-            x + tile.pixelX * sx + tOffsetX, y + tile.pixelY * sy + (th * sy - tOffsetY),
+            x + tile.pixelX * sx + (tw * sx - tOffsetX), y + tile.pixelY * sy + (th * sy - tOffsetY),
             tile.width, tile.height,
             sx, sy,
             tile.rotation,

@@ -311,7 +311,7 @@ var PipelineManager = new Class({
      * For example, you should pass it like this:
      *
      * ```javascript
-     * this.add('yourName', new CustomPipeline());`
+     * this.add('yourName', new CustomPipeline(game));`
      * ```
      *
      * and **not** like this:
@@ -359,7 +359,7 @@ var PipelineManager = new Class({
             pipeline.boot();
         }
 
-        if (renderer.width !== 0 && renderer.height !== 0)
+        if (renderer.width !== 0 && renderer.height !== 0 && !pipeline.isSpriteFX)
         {
             pipeline.resize(renderer.width, renderer.height);
         }

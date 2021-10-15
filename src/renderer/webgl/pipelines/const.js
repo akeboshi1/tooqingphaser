@@ -95,6 +95,7 @@ var PIPELINE_CONST = {
      * @since 3.50.0
      */
     UTILITY_PIPELINE: 'UtilityPipeline'
+
 };
 
 module.exports = PIPELINE_CONST;

@@ -427,6 +427,8 @@ var CanvasRenderer = new Class({
             ctx.clip();
         }
 
+        camera.emit(CameraEvents.PRE_RENDER, camera);
+
         this.currentContext = ctx;
 
         var mask = camera.mask;
@@ -498,6 +500,8 @@ var CanvasRenderer = new Class({
                 scene.sys.context.drawImage(camera.canvas, cx, cy);
             }
         }
+
+        camera.emit(CameraEvents.POST_RENDER, camera);
     },
 
     /**
@@ -560,7 +564,7 @@ var CanvasRenderer = new Class({
 
         state.getPixel = getPixel;
 
-        CanvasSnapshot(this.canvas, state);
+        CanvasSnapshot(canvas, state);
 
         state.callback = null;
 
@@ -792,6 +796,12 @@ var CanvasRenderer = new Class({
 
         //  Multiply by the Sprite matrix
         camMatrix.multiply(spriteMatrix);
+
+        if (camera.roundPixels)
+        {
+            camMatrix.e = Math.round(camMatrix.e);
+            camMatrix.f = Math.round(camMatrix.f);
+        }
 
         ctx.save();
 

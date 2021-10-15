@@ -279,6 +279,16 @@ var WebGLPipeline = new Class({
         this.isPostFX = false;
 
         /**
+         * Indicates if this is a Sprite FX Pipeline, or not.
+         *
+         * @name Phaser.Renderer.WebGL.WebGLPipeline#isSpriteFX
+         * @type {boolean}
+         * @readonly
+         * @since 3.60.0
+         */
+        this.isSpriteFX = false;
+
+        /**
          * An array of RenderTarget instances that belong to this pipeline.
          *
          * @name Phaser.Renderer.WebGL.WebGLPipeline#renderTargets
@@ -429,8 +439,17 @@ var WebGLPipeline = new Class({
                 var scale = GetFastValue(targets[i], 'scale', 1);
                 var minFilter = GetFastValue(targets[i], 'minFilter', 0);
                 var autoClear = GetFastValue(targets[i], 'autoClear', 1);
+                var targetWidth = GetFastValue(targets[i], 'width', null);
+                var targetHeight = GetFastValue(targets[i], 'height', targetWidth);
 
-                renderTargets.push(new RenderTarget(renderer, width, height, scale, minFilter, autoClear));
+                if (targetWidth)
+                {
+                    renderTargets.push(new RenderTarget(renderer, targetWidth, targetHeight, 1, minFilter, autoClear));
+                }
+                else
+                {
+                    renderTargets.push(new RenderTarget(renderer, width, height, scale, minFilter, autoClear));
+                }
             }
         }
 
@@ -539,10 +558,11 @@ var WebGLPipeline = new Class({
      *
      * @param {Phaser.Renderer.WebGL.WebGLShader} shader - The shader to set as being current.
      * @param {boolean} [setAttributes=false] - Should the vertex attribute pointers be set?
+     * @param {WebGLBuffer} [vertexBuffer] - The vertex buffer to be set before the shader is bound. Defaults to the one owned by this pipeline.
      *
      * @return {this} This WebGLPipeline instance.
      */
-    setShader: function (shader, setAttributes)
+    setShader: function (shader, setAttributes, vertexBuffer)
     {
         var renderer = this.renderer;
 
@@ -552,7 +572,7 @@ var WebGLPipeline = new Class({
 
             renderer.resetTextures();
 
-            var wasBound = this.setVertexBuffer();
+            var wasBound = this.setVertexBuffer(vertexBuffer);
 
             if (wasBound && !setAttributes)
             {
@@ -909,12 +929,15 @@ var WebGLPipeline = new Class({
      * @method Phaser.Renderer.WebGL.WebGLPipeline#setVertexBuffer
      * @since 3.50.0
      *
+     * @param {WebGLBuffer} [buffer] - The Vertex Buffer to be bound. Defaults to the one owned by this pipeline.
+     *
      * @return {boolean} `true` if the vertex buffer was bound, or `false` if it was already bound.
      */
-    setVertexBuffer: function ()
+    setVertexBuffer: function (buffer)
     {
+        if (buffer === undefined) { buffer = this.vertexBuffer; }
+
         var gl = this.gl;
-        var buffer = this.vertexBuffer;
 
         if (gl.getParameter(gl.ARRAY_BUFFER_BINDING) !== buffer)
         {
@@ -976,7 +999,7 @@ var WebGLPipeline = new Class({
     },
 
     /**
-     * This method is only used by Post FX Pipelines and those that extend from them.
+     * This method is only used by Sprite FX and Post FX Pipelines and those that extend from them.
      *
      * This method is called every time the `postBatch` method is called and is passed a
      * reference to the current render target.

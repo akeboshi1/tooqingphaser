@@ -517,7 +517,7 @@ var TileSprite = new Class({
      *
      * @method Phaser.GameObjects.TileSprite#onContextRestored
      * @protected
-     * @since 3.56.0
+     * @since 3.60.0
      */
     onContextRestored: function (renderer)
     {

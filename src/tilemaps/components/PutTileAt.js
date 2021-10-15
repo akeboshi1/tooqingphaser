@@ -68,9 +68,9 @@ var PutTileAt = function (tile, tileX, tileY, recalculateFaces, layer)
 
     // Copy properties from tileset to tiles.
     var tiles = BuildTilesetIndex(layer.tilemapLayer.tilemap);
-    var idx = tile instanceof Tile ? tile.index : tile;
+    var index = tile instanceof Tile ? tile.index : tile;
 
-    var sid = tiles[idx][2];
+    var sid = tiles[index][2];
     var set = layer.tilemapLayer.tileset[sid];
 
     newTile.width = set.tileWidth;
