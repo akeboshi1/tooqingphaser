@@ -89,6 +89,7 @@ export class Parser {
                 case 'Phaser.GameObjects.Components.ToJSON':
                 case 'Phaser.GameObjects.Components.Transform':
                 case 'Phaser.GameObjects.Components.Visible':
+                case 'Phaser.GameObjects.Components.FX':
                     doclet.kind = 'mixin';
                     break;
 
