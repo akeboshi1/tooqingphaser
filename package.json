@@ -1,9 +1,9 @@
 {
-    "name": "tooqingphaser",
+    "name": "phaser3",
     "version": "0.4.7",
-    "description": "tooqingphaser",
+    "description": "phaser3",
     "main": "./dist/phaser.js",
-    "types": "./types/tooqingphaser.d.ts",
+    "types": "./types/phaser3.d.ts",
     "author": "tooqing",
     "license": "MIT",
     "scripts": {
