@@ -339,7 +339,7 @@ var SpriteFXPipeline = new Class({
      *
      * Where tx0/ty0 = 0, tx1/ty1 = 1, tx2/ty2 = 2 and tx3/ty3 = 3
      *
-     * @method Phaser.Renderer.WebGL.SpriteFXPipeline#batchQuad
+     * @method Phaser.Renderer.WebGL.Pipelines.SpriteFXPipeline#batchQuad
      * @since 3.60.0
      *
      * @param {(Phaser.GameObjects.GameObject|null)} gameObject - The Game Object, if any, drawing this quad.
