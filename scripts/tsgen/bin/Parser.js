@@ -19,7 +19,7 @@ class Parser {
         // add integer alias
         this.topLevel.push(dom.create.alias('integer', dom.type.number));
         // add declare module
-        const phaserPkgModuleDOM = dom.create.module('tooqingphaser');
+        const phaserPkgModuleDOM = dom.create.module('phaser3');
         phaserPkgModuleDOM.members.push(dom.create.exportEquals('Phaser'));
         this.topLevel.push(phaserPkgModuleDOM);
     }

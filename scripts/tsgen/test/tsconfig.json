@@ -17,7 +17,7 @@
     },
     "include": [
         "src/game.ts",
-      "../../../types/tooqingphaser.d.ts"
+      "../../../types/phaser3.d.ts"
     ],
     "exclude": [
         "node_modules",

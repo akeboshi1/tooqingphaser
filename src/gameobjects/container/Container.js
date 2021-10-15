@@ -1262,7 +1262,7 @@ var Container = new Class({
      * @name Phaser.GameObjects.Container#first
      * @type {?Phaser.GameObjects.GameObject}
      * @readonly
-     * @since 3.4.0
+    * @since 3.4.0
      */
     first: {
 

@@ -28,8 +28,7 @@ var TextureManager = require('../textures/TextureManager');
 var TimeStep = require('./TimeStep');
 var VisibilityHandler = require('./VisibilityHandler');
 
-if (typeof FEATURE_SOUND)
-{
+if (typeof FEATURE_SOUND) {
     var SoundManagerCreator = require('../sound/SoundManagerCreator');
 }
 
@@ -63,285 +62,283 @@ var Game = new Class({
 
     initialize:
 
-    function Game (config)
-    {
-        /**
-         * The parsed Game Configuration object.
-         *
-         * The values stored within this object are read-only and should not be changed at run-time.
-         *
-         * @name Phaser.Game#config
-         * @type {Phaser.Core.Config}
-         * @readonly
-         * @since 3.0.0
-         */
-        this.config = new Config(config);
+        function Game(config) {
+            /**
+             * The parsed Game Configuration object.
+             *
+             * The values stored within this object are read-only and should not be changed at run-time.
+             *
+             * @name Phaser.Game#config
+             * @type {Phaser.Core.Config}
+             * @readonly
+             * @since 3.0.0
+             */
+            this.config = new Config(config);
 
-        /**
-         * A reference to either the Canvas or WebGL Renderer that this Game is using.
-         *
-         * @name Phaser.Game#renderer
-         * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
-         * @since 3.0.0
-         */
-        this.renderer = null;
+            /**
+             * A reference to either the Canvas or WebGL Renderer that this Game is using.
+             *
+             * @name Phaser.Game#renderer
+             * @type {(Phaser.Renderer.Canvas.CanvasRenderer|Phaser.Renderer.WebGL.WebGLRenderer)}
+             * @since 3.0.0
+             */
+            this.renderer = null;
 
-        /**
-         * A reference to an HTML Div Element used as the DOM Element Container.
-         *
-         * Only set if `createDOMContainer` is `true` in the game config (by default it is `false`) and
-         * if you provide a parent element to insert the Phaser Game inside.
-         *
-         * See the DOM Element Game Object for more details.
-         *
-         * @name Phaser.Game#domContainer
-         * @type {HTMLDivElement}
-         * @since 3.17.0
-         */
-        this.domContainer = null;
+            /**
+             * A reference to an HTML Div Element used as the DOM Element Container.
+             *
+             * Only set if `createDOMContainer` is `true` in the game config (by default it is `false`) and
+             * if you provide a parent element to insert the Phaser Game inside.
+             *
+             * See the DOM Element Game Object for more details.
+             *
+             * @name Phaser.Game#domContainer
+             * @type {HTMLDivElement}
+             * @since 3.17.0
+             */
+            this.domContainer = null;
 
-        /**
-         * A reference to the HTML Canvas Element that Phaser uses to render the game.
-         * This is created automatically by Phaser unless you provide a `canvas` property
-         * in your Game Config.
-         *
-         * @name Phaser.Game#canvas
-         * @type {HTMLCanvasElement}
-         * @since 3.0.0
-         */
-        this.canvas = null;
+            /**
+             * A reference to the HTML Canvas Element that Phaser uses to render the game.
+             * This is created automatically by Phaser unless you provide a `canvas` property
+             * in your Game Config.
+             *
+             * @name Phaser.Game#canvas
+             * @type {HTMLCanvasElement}
+             * @since 3.0.0
+             */
+            this.canvas = null;
 
-        /**
-         * A reference to the Rendering Context belonging to the Canvas Element this game is rendering to.
-         * If the game is running under Canvas it will be a 2d Canvas Rendering Context.
-         * If the game is running under WebGL it will be a WebGL Rendering Context.
-         * This context is created automatically by Phaser unless you provide a `context` property
-         * in your Game Config.
-         *
-         * @name Phaser.Game#context
-         * @type {(CanvasRenderingContext2D|WebGLRenderingContext)}
-         * @since 3.0.0
-         */
-        this.context = null;
+            /**
+             * A reference to the Rendering Context belonging to the Canvas Element this game is rendering to.
+             * If the game is running under Canvas it will be a 2d Canvas Rendering Context.
+             * If the game is running under WebGL it will be a WebGL Rendering Context.
+             * This context is created automatically by Phaser unless you provide a `context` property
+             * in your Game Config.
+             *
+             * @name Phaser.Game#context
+             * @type {(CanvasRenderingContext2D|WebGLRenderingContext)}
+             * @since 3.0.0
+             */
+            this.context = null;
 
-        /**
-         * A flag indicating when this Game instance has finished its boot process.
-         *
-         * @name Phaser.Game#isBooted
-         * @type {boolean}
-         * @readonly
-         * @since 3.0.0
-         */
-        this.isBooted = false;
+            /**
+             * A flag indicating when this Game instance has finished its boot process.
+             *
+             * @name Phaser.Game#isBooted
+             * @type {boolean}
+             * @readonly
+             * @since 3.0.0
+             */
+            this.isBooted = false;
 
-        /**
-         * A flag indicating if this Game is currently running its game step or not.
-         *
-         * @name Phaser.Game#isRunning
-         * @type {boolean}
-         * @readonly
-         * @since 3.0.0
-         */
-        this.isRunning = false;
+            /**
+             * A flag indicating if this Game is currently running its game step or not.
+             *
+             * @name Phaser.Game#isRunning
+             * @type {boolean}
+             * @readonly
+             * @since 3.0.0
+             */
+            this.isRunning = false;
 
-        /**
-         * An Event Emitter which is used to broadcast game-level events from the global systems.
-         *
-         * @name Phaser.Game#events
-         * @type {Phaser.Events.EventEmitter}
-         * @since 3.0.0
-         */
-        this.events = new EventEmitter();
+            /**
+             * An Event Emitter which is used to broadcast game-level events from the global systems.
+             *
+             * @name Phaser.Game#events
+             * @type {Phaser.Events.EventEmitter}
+             * @since 3.0.0
+             */
+            this.events = new EventEmitter();
 
-        /**
-         * An instance of the Animation Manager.
-         *
-         * The Animation Manager is a global system responsible for managing all animations used within your game.
-         *
-         * @name Phaser.Game#anims
-         * @type {Phaser.Animations.AnimationManager}
-         * @since 3.0.0
-         */
-        this.anims = new AnimationManager(this);
+            /**
+             * An instance of the Animation Manager.
+             *
+             * The Animation Manager is a global system responsible for managing all animations used within your game.
+             *
+             * @name Phaser.Game#anims
+             * @type {Phaser.Animations.AnimationManager}
+             * @since 3.0.0
+             */
+            this.anims = new AnimationManager(this);
 
-        /**
-         * An instance of the Texture Manager.
-         *
-         * The Texture Manager is a global system responsible for managing all textures being used by your game.
-         *
-         * @name Phaser.Game#textures
-         * @type {Phaser.Textures.TextureManager}
-         * @since 3.0.0
-         */
-        this.textures = new TextureManager(this);
+            /**
+             * An instance of the Texture Manager.
+             *
+             * The Texture Manager is a global system responsible for managing all textures being used by your game.
+             *
+             * @name Phaser.Game#textures
+             * @type {Phaser.Textures.TextureManager}
+             * @since 3.0.0
+             */
+            this.textures = new TextureManager(this);
 
-        /**
-         * An instance of the Cache Manager.
-         *
-         * The Cache Manager is a global system responsible for caching, accessing and releasing external game assets.
-         *
-         * @name Phaser.Game#cache
-         * @type {Phaser.Cache.CacheManager}
-         * @since 3.0.0
-         */
-        this.cache = new CacheManager(this);
+            /**
+             * An instance of the Cache Manager.
+             *
+             * The Cache Manager is a global system responsible for caching, accessing and releasing external game assets.
+             *
+             * @name Phaser.Game#cache
+             * @type {Phaser.Cache.CacheManager}
+             * @since 3.0.0
+             */
+            this.cache = new CacheManager(this);
 
-        /**
-         * An instance of the Data Manager
-         *
-         * @name Phaser.Game#registry
-         * @type {Phaser.Data.DataManager}
-         * @since 3.0.0
-         */
-        this.registry = new DataManager(this);
+            /**
+             * An instance of the Data Manager
+             *
+             * @name Phaser.Game#registry
+             * @type {Phaser.Data.DataManager}
+             * @since 3.0.0
+             */
+            this.registry = new DataManager(this);
 
-        /**
-         * An instance of the Input Manager.
-         *
-         * The Input Manager is a global system responsible for the capture of browser-level input events.
-         *
-         * @name Phaser.Game#input
-         * @type {Phaser.Input.InputManager}
-         * @since 3.0.0
-         */
-        this.input = new InputManager(this, this.config);
+            /**
+             * An instance of the Input Manager.
+             *
+             * The Input Manager is a global system responsible for the capture of browser-level input events.
+             *
+             * @name Phaser.Game#input
+             * @type {Phaser.Input.InputManager}
+             * @since 3.0.0
+             */
+            this.input = new InputManager(this, this.config);
 
-        /**
-         * An instance of the Scene Manager.
-         *
-         * The Scene Manager is a global system responsible for creating, modifying and updating the Scenes in your game.
-         *
-         * @name Phaser.Game#scene
-         * @type {Phaser.Scenes.SceneManager}
-         * @since 3.0.0
-         */
-        this.scene = new SceneManager(this, this.config.sceneConfig);
+            /**
+             * An instance of the Scene Manager.
+             *
+             * The Scene Manager is a global system responsible for creating, modifying and updating the Scenes in your game.
+             *
+             * @name Phaser.Game#scene
+             * @type {Phaser.Scenes.SceneManager}
+             * @since 3.0.0
+             */
+            this.scene = new SceneManager(this, this.config.sceneConfig);
 
-        /**
-         * A reference to the Device inspector.
-         *
-         * Contains information about the device running this game, such as OS, browser vendor and feature support.
-         * Used by various systems to determine capabilities and code paths.
-         *
-         * @name Phaser.Game#device
-         * @type {Phaser.DeviceConf}
-         * @since 3.0.0
-         */
-        this.device = Device;
+            /**
+             * A reference to the Device inspector.
+             *
+             * Contains information about the device running this game, such as OS, browser vendor and feature support.
+             * Used by various systems to determine capabilities and code paths.
+             *
+             * @name Phaser.Game#device
+             * @type {Phaser.DeviceConf}
+             * @since 3.0.0
+             */
+            this.device = Device;
 
-        /**
-         * An instance of the Scale Manager.
-         *
-         * The Scale Manager is a global system responsible for handling scaling of the game canvas.
-         *
-         * @name Phaser.Game#scale
-         * @type {Phaser.Scale.ScaleManager}
-         * @since 3.16.0
-         */
-        this.scale = new ScaleManager(this, this.config);
+            /**
+             * An instance of the Scale Manager.
+             *
+             * The Scale Manager is a global system responsible for handling scaling of the game canvas.
+             *
+             * @name Phaser.Game#scale
+             * @type {Phaser.Scale.ScaleManager}
+             * @since 3.16.0
+             */
+            this.scale = new ScaleManager(this, this.config);
 
-        /**
-         * An instance of the base Sound Manager.
-         *
-         * The Sound Manager is a global system responsible for the playback and updating of all audio in your game.
-         *
-         * You can disable the inclusion of the Sound Manager in your build by toggling the webpack `FEATURE_SOUND` flag.
-         *
-         * @name Phaser.Game#sound
-         * @type {(Phaser.Sound.NoAudioSoundManager|Phaser.Sound.HTML5AudioSoundManager|Phaser.Sound.WebAudioSoundManager)}
-         * @since 3.0.0
-         */
-        this.sound = null;
+            /**
+             * An instance of the base Sound Manager.
+             *
+             * The Sound Manager is a global system responsible for the playback and updating of all audio in your game.
+             *
+             * You can disable the inclusion of the Sound Manager in your build by toggling the webpack `FEATURE_SOUND` flag.
+             *
+             * @name Phaser.Game#sound
+             * @type {(Phaser.Sound.NoAudioSoundManager|Phaser.Sound.HTML5AudioSoundManager|Phaser.Sound.WebAudioSoundManager)}
+             * @since 3.0.0
+             */
+            this.sound = null;
 
-        if (typeof FEATURE_SOUND)
-        {
-            this.sound = SoundManagerCreator.create(this);
-        }
+            if (typeof FEATURE_SOUND) {
+                this.sound = SoundManagerCreator.create(this);
+            }
 
-        /**
-         * An instance of the Time Step.
-         *
-         * The Time Step is a global system responsible for setting-up and responding to the browser frame events, processing
-         * them and calculating delta values. It then automatically calls the game step.
-         *
-         * @name Phaser.Game#loop
-         * @type {Phaser.Core.TimeStep}
-         * @since 3.0.0
-         */
-        this.loop = new TimeStep(this, this.config.fps);
+            /**
+             * An instance of the Time Step.
+             *
+             * The Time Step is a global system responsible for setting-up and responding to the browser frame events, processing
+             * them and calculating delta values. It then automatically calls the game step.
+             *
+             * @name Phaser.Game#loop
+             * @type {Phaser.Core.TimeStep}
+             * @since 3.0.0
+             */
+            this.loop = new TimeStep(this, this.config.fps);
 
-        /**
-         * An instance of the Plugin Manager.
-         *
-         * The Plugin Manager is a global system that allows plugins to register themselves with it, and can then install
-         * those plugins into Scenes as required.
-         *
-         * @name Phaser.Game#plugins
-         * @type {Phaser.Plugins.PluginManager}
-         * @since 3.0.0
-         */
-        this.plugins = new PluginManager(this, this.config);
+            /**
+             * An instance of the Plugin Manager.
+             *
+             * The Plugin Manager is a global system that allows plugins to register themselves with it, and can then install
+             * those plugins into Scenes as required.
+             *
+             * @name Phaser.Game#plugins
+             * @type {Phaser.Plugins.PluginManager}
+             * @since 3.0.0
+             */
+            this.plugins = new PluginManager(this, this.config);
 
-        // if (typeof PLUGIN_FBINSTANT)
-        // {
-        //     /**
-        //      * An instance of the Facebook Instant Games Plugin.
-        //      *
-        //      * This will only be available if the plugin has been built into Phaser,
-        //      * or you're using the special Facebook Instant Games custom build.
-        //      *
-        //      * @name Phaser.Game#facebook
-        //      * @type {Phaser.FacebookInstantGamesPlugin}
-        //      * @since 3.13.0
-        //      */
-        //     this.facebook = new FacebookInstantGamesPlugin(this);
-        // }
+            // if (typeof PLUGIN_FBINSTANT)
+            // {
+            //     /**
+            //      * An instance of the Facebook Instant Games Plugin.
+            //      *
+            //      * This will only be available if the plugin has been built into Phaser,
+            //      * or you're using the special Facebook Instant Games custom build.
+            //      *
+            //      * @name Phaser.Game#facebook
+            //      * @type {Phaser.FacebookInstantGamesPlugin}
+            //      * @since 3.13.0
+            //      */
+            //     this.facebook = new FacebookInstantGamesPlugin(this);
+            // }
 
-        /**
-         * Is this Game pending destruction at the start of the next frame?
-         *
-         * @name Phaser.Game#pendingDestroy
-         * @type {boolean}
-         * @private
-         * @since 3.5.0
-         */
-        this.pendingDestroy = false;
+            /**
+             * Is this Game pending destruction at the start of the next frame?
+             *
+             * @name Phaser.Game#pendingDestroy
+             * @type {boolean}
+             * @private
+             * @since 3.5.0
+             */
+            this.pendingDestroy = false;
 
-        /**
-         * Remove the Canvas once the destroy is over?
-         *
-         * @name Phaser.Game#removeCanvas
-         * @type {boolean}
-         * @private
-         * @since 3.5.0
-         */
-        this.removeCanvas = false;
+            /**
+             * Remove the Canvas once the destroy is over?
+             *
+             * @name Phaser.Game#removeCanvas
+             * @type {boolean}
+             * @private
+             * @since 3.5.0
+             */
+            this.removeCanvas = false;
 
-        /**
-         * Remove everything when the game is destroyed.
-         * You cannot create a new Phaser instance on the same web page after doing this.
-         *
-         * @name Phaser.Game#noReturn
-         * @type {boolean}
-         * @private
-         * @since 3.12.0
-         */
-        this.noReturn = false;
+            /**
+             * Remove everything when the game is destroyed.
+             * You cannot create a new Phaser instance on the same web page after doing this.
+             *
+             * @name Phaser.Game#noReturn
+             * @type {boolean}
+             * @private
+             * @since 3.12.0
+             */
+            this.noReturn = false;
 
-        /**
-         * Does the window the game is running in currently have focus or not?
-         * This is modified by the VisibilityHandler.
-         *
-         * @name Phaser.Game#hasFocus
-         * @type {boolean}
-         * @readonly
-         * @since 3.9.0
-         */
-        this.hasFocus = false;
+            /**
+             * Does the window the game is running in currently have focus or not?
+             * This is modified by the VisibilityHandler.
+             *
+             * @name Phaser.Game#hasFocus
+             * @type {boolean}
+             * @readonly
+             * @since 3.9.0
+             */
+            this.hasFocus = false;
 
-        //  Wait for the DOM Ready event, then call boot.
-        DOMContentLoaded(this.boot.bind(this));
-    },
+            //  Wait for the DOM Ready event, then call boot.
+            DOMContentLoaded(this.boot.bind(this));
+        },
 
     /**
      * This method is called automatically when the DOM is ready. It is responsible for creating the renderer,
@@ -354,10 +351,8 @@ var Game = new Class({
      * @listens Phaser.Textures.Events#READY
      * @since 3.0.0
      */
-    boot: function ()
-    {
-        if (!PluginCache.hasCore('EventEmitter'))
-        {
+    boot: function () {
+        if (!PluginCache.hasCore('EventEmitter')) {
             console.warn('Aborting. Core Plugins missing.');
             return;
         }
@@ -392,8 +387,7 @@ var Game = new Class({
      * @fires Phaser.Game#READY
      * @since 3.12.0
      */
-    texturesReady: function ()
-    {
+    texturesReady: function () {
         //  Start all the other systems
         this.events.emit(Events.READY);
 
@@ -409,18 +403,15 @@ var Game = new Class({
      * @protected
      * @since 3.0.0
      */
-    start: function ()
-    {
+    start: function () {
         this.isRunning = true;
 
         this.config.postBoot(this);
 
-        if (this.renderer)
-        {
+        if (this.renderer) {
             this.loop.start(this.step.bind(this));
         }
-        else
-        {
+        else {
             this.loop.start(this.headlessStep.bind(this));
         }
 
@@ -453,10 +444,8 @@ var Game = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    step: function (time, delta)
-    {
-        if (this.pendingDestroy)
-        {
+    step: function (time, delta) {
+        if (this.pendingDestroy) {
             return this.runDestroy();
         }
 
@@ -517,10 +506,8 @@ var Game = new Class({
      * @param {number} time - The current time. Either a High Resolution Timer value if it comes from Request Animation Frame, or Date.now if using SetTimeout.
      * @param {number} delta - The delta time in ms since the last frame. This is a smoothed and capped value based on the FPS rate.
      */
-    headlessStep: function (time, delta)
-    {
-        if (this.pendingDestroy)
-        {
+    headlessStep: function (time, delta) {
+        if (this.pendingDestroy) {
             return this.runDestroy();
         }
 
@@ -554,8 +541,7 @@ var Game = new Class({
      * @fires Phaser.Core.Events#PAUSE
      * @since 3.0.0
      */
-    onHidden: function ()
-    {
+    onHidden: function () {
         this.loop.pause();
 
         this.events.emit(Events.PAUSE);
@@ -570,8 +556,7 @@ var Game = new Class({
      * @fires Phaser.Core.Events#RESUME
      * @since 3.0.0
      */
-    onVisible: function ()
-    {
+    onVisible: function () {
         this.loop.resume();
 
         this.events.emit(Events.RESUME);
@@ -585,8 +570,7 @@ var Game = new Class({
      * @protected
      * @since 3.0.0
      */
-    onBlur: function ()
-    {
+    onBlur: function () {
         this.hasFocus = false;
 
         this.loop.blur();
@@ -600,8 +584,7 @@ var Game = new Class({
      * @protected
      * @since 3.0.0
      */
-    onFocus: function ()
-    {
+    onFocus: function () {
         this.hasFocus = true;
 
         this.loop.focus();
@@ -617,8 +600,7 @@ var Game = new Class({
      *
      * @return {number} The current game frame.
      */
-    getFrame: function ()
-    {
+    getFrame: function () {
         return this.loop.frame;
     },
 
@@ -630,8 +612,7 @@ var Game = new Class({
      *
      * @return {number} The current game timestamp.
      */
-    getTime: function ()
-    {
+    getTime: function () {
         return this.loop.now;
     },
 
@@ -652,8 +633,7 @@ var Game = new Class({
      * @param {boolean} removeCanvas - Set to `true` if you would like the parent canvas element removed from the DOM, or `false` to leave it in place.
      * @param {boolean} [noReturn=false] - If `true` all the core Phaser plugins are destroyed. You cannot create another instance of Phaser on the same web page if you do this.
      */
-    destroy: function (removeCanvas, noReturn)
-    {
+    destroy: function (removeCanvas, noReturn) {
         if (noReturn === undefined) { noReturn = false; }
 
         this.pendingDestroy = true;
@@ -669,34 +649,35 @@ var Game = new Class({
      * @private
      * @since 3.5.0
      */
-    runDestroy: function ()
-    {
+    runDestroy: function () {
         this.scene.destroy();
 
         this.events.emit(Events.DESTROY);
 
         this.events.removeAllListeners();
 
-        if (this.renderer)
-        {
+        if (this.renderer) {
             this.renderer.destroy();
         }
 
-        if (this.removeCanvas && this.canvas)
-        {
+        if (this.removeCanvas && this.canvas) {
             CanvasPool.remove(this.canvas);
 
-            if (this.canvas.parentNode)
-            {
+            if (this.canvas.parentNode) {
                 this.canvas.parentNode.removeChild(this.canvas);
+                // 是否也要处理要把this.canvas
             }
         }
 
-        if (this.domContainer)
-        {
-            this.domContainer.parentNode.removeChild(this.domContainer);
+        if (this.textures) {
+            this.textures.destroy();
+            this.textures = null;
         }
 
+        if (this.domContainer) {
+            this.domContainer.parentNode.removeChild(this.domContainer);
+        }
+        this.events.emit("true_destroy");
         this.loop.destroy();
 
         this.pendingDestroy = false;
