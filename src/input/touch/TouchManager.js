@@ -15,9 +15,9 @@ var NOOP = require('../../utils/NOOP');
 /**
  * @classdesc
  * The Touch Manager is a helper class that belongs to the Input Manager.
- * 
+ *
  * Its role is to listen for native DOM Touch Events and then pass them onto the Input Manager for further processing.
- * 
+ *
  * You do not need to create this class directly, the Input Manager will create an instance of it automatically.
  *
  * @class TouchManager
@@ -199,9 +199,9 @@ var TouchManager = new Class({
 
     /**
      * Attempts to disable the context menu from appearing if you touch-hold on the browser.
-     * 
+     *
      * Works by listening for the `contextmenu` event and prevent defaulting it.
-     * 
+     *
      * Use this if you need to disable the OS context menu on mobile.
      *
      * @method Phaser.Input.Touch.TouchManager#disableContextMenu
@@ -222,7 +222,7 @@ var TouchManager = new Class({
 
     /**
      * Starts the Touch Event listeners running as long as an input target is set.
-     * 
+     *
      * This method is called automatically if Touch Input is enabled in the game config,
      * which it is by default. However, you can call it manually should you need to
      * delay input capturing until later in the game.
@@ -246,7 +246,7 @@ var TouchManager = new Class({
             if (!event.defaultPrevented && _this.enabled && _this.manager && _this.manager.enabled)
             {
                 _this.manager.onTouchStart(event);
-    
+
                 if (_this.capture && event.cancelable && event.target === canvas)
                 {
                     event.preventDefault();
@@ -268,7 +268,7 @@ var TouchManager = new Class({
             if (!event.defaultPrevented && _this.enabled && _this.manager && _this.manager.enabled)
             {
                 _this.manager.onTouchMove(event);
-    
+
                 if (_this.capture && event.cancelable)
                 {
                     event.preventDefault();
@@ -281,7 +281,7 @@ var TouchManager = new Class({
             if (!event.defaultPrevented && _this.enabled && _this.manager && _this.manager.enabled)
             {
                 _this.manager.onTouchEnd(event);
-    
+
                 if (_this.capture && event.cancelable && event.target === canvas)
                 {
                     event.preventDefault();
@@ -303,7 +303,7 @@ var TouchManager = new Class({
             if (!event.defaultPrevented && _this.enabled && _this.manager && _this.manager.enabled)
             {
                 _this.manager.onTouchCancel(event);
-    
+
                 if (_this.capture)
                 {
                     event.preventDefault();
@@ -384,6 +384,7 @@ var TouchManager = new Class({
         {
             window.removeEventListener('touchstart', this.onTouchStartWindow);
             window.removeEventListener('touchend', this.onTouchEndWindow);
+            window.removeEventListener('touchcancel', this.onTouchCancelWindow);
         }
     },
 
