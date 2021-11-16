@@ -226,8 +226,6 @@ var MultiPipeline = new Class({
      *
      * @method Phaser.Renderer.WebGL.Pipelines.MultiPipeline#boot
      * @since 3.50.0
-     *
-     * @return {this} This WebGLPipeline instance.
      */
     boot: function ()
     {
