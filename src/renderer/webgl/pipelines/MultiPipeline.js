@@ -224,7 +224,7 @@ var MultiPipeline = new Class({
      * Sets the shader program, vertex buffer and other resources.
      * Should only be called when changing pipeline.
      *
-     * @method Phaser.Renderer.WebGL.Pipelines.MultiPipeline#bind
+     * @method Phaser.Renderer.WebGL.Pipelines.MultiPipeline#boot
      * @since 3.50.0
      *
      * @return {this} This WebGLPipeline instance.
