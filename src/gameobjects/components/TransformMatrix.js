@@ -776,19 +776,9 @@ var TransformMatrix = new Class({
 
     /**
      * Describes the `translate`, `rotation`, `scale`, and `shear` (in that order) of a given `TransformMatrix`. The shear is additive with the rotation.
-     *
-     * @inner
-     * @typedef {Object} Phaser.GameObjects.Components.TransformMatrix~DecomposedMatrix
-     * @property {number} translateX - Horizontal displacement.
-     * @property {number} translatey - Vertical displacement.
-     * @property {number} rotation - Rotation in radians.
-     * @property {number} scaleX - Horizontal stretching.
-     * @property {number} scaleY - Vertical stretching.
-     * @property {number} skewX - Horizontal shear exclusive of rotation.
-     * @property {number} skewY - Vertical shear exclusive of rotation.
      * @method Phaser.GameObjects.Components.TransformMatrix#decomposeMatrix
      * @since 3.0.0
-     * @return {Phaser.GameObjects.Components.TransformMatrix~DecomposedMatrix} The decomposed Matrix.
+     * @return {object} The decomposed Matrix.
      */
     decomposeMatrix: function () {
         var decomposedMatrix = this.decomposedMatrix;
