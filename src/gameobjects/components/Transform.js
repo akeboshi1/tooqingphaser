@@ -411,8 +411,8 @@ var Transform = {
         if (sx === undefined) { sx = 0; }
         if (sy === undefined) { sy = 0; }
 
-        this._skewX = sx;
-        this._skewY = sy;
+        this.skewX = sx;
+        this.skewY = sy;
 
         return this;
     },
