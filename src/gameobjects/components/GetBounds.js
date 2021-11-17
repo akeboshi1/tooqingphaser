@@ -7,7 +7,7 @@
 var Rectangle = require('../../geom/rectangle/Rectangle');
 var RotateAround = require('../../math/RotateAround');
 var Vector2 = require('../../math/Vector2');
-
+var TransformMatrix = require('./TransformMatrix');
 /**
  * Provides methods used for obtaining the bounds of a Game Object.
  * Should be applied as a mixin and not used directly.
@@ -36,15 +36,17 @@ var GetBounds = {
     {
         if (includeParent === undefined) { includeParent = false; }
 
-        if (this.rotation !== 0)
+        if (this.rotation !== 0 || this.skewX !== 0 || this.skewY !== 0)
         {
-            RotateAround(output, this.x, this.y, this.rotation);
+            RotateAround(output, this.x, this.y, this.rotation, this.skewX, this.skewY);
         }
+
 
         if (includeParent && this.parentContainer)
         {
             var parentMatrix = this.parentContainer.getBoundsTransformMatrix();
 
+            
             parentMatrix.transformPoint(output.x, output.y, output);
         }
 

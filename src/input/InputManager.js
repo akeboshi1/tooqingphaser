@@ -918,7 +918,9 @@ var InputManager = new Class({
             }
             else
             {
-                TransformXY(px, py, gameObject.x, gameObject.y, gameObject.rotation, gameObject.scaleX, gameObject.scaleY, point);
+                // TransformXY(px, py, gameObject.x, gameObject.y, gameObject.rotation, gameObject.scaleX, gameObject.scaleY, point);
+                gameObject.getLocalTransformMatrix(matrix);
+                matrix.applyInverse(px, py, point);
             }
 
             if (this.pointWithinHitArea(gameObject, point.x, point.y))
