@@ -166,6 +166,12 @@ var Transform = {
         },
         set: function (value) {
             this._skewX = value;
+            if (value === 0) {
+                this.renderFlags &= ~_FLAG;
+            }
+            else {
+                this.renderFlags |= _FLAG;
+            }
         }
     },
     /**
@@ -182,6 +188,12 @@ var Transform = {
         },
         set: function (value) {
             this._skewY = value;
+            if (value === 0) {
+                this.renderFlags &= ~_FLAG;
+            }
+            else {
+                this.renderFlags |= _FLAG;
+            }
         }
     },
 
