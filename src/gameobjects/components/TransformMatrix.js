@@ -36,39 +36,38 @@ var TransformMatrix = new Class({
 
     initialize:
 
-    function TransformMatrix (a, b, c, d, tx, ty)
-    {
-        if (a === undefined) { a = 1; }
-        if (b === undefined) { b = 0; }
-        if (c === undefined) { c = 0; }
-        if (d === undefined) { d = 1; }
-        if (tx === undefined) { tx = 0; }
-        if (ty === undefined) { ty = 0; }
+        function TransformMatrix(a, b, c, d, tx, ty) {
+            if (a === undefined) { a = 1; }
+            if (b === undefined) { b = 0; }
+            if (c === undefined) { c = 0; }
+            if (d === undefined) { d = 1; }
+            if (tx === undefined) { tx = 0; }
+            if (ty === undefined) { ty = 0; }
 
-        /**
-         * The matrix values.
-         *
-         * @name Phaser.GameObjects.Components.TransformMatrix#matrix
-         * @type {Float32Array}
-         * @since 3.0.0
-         */
-        this.matrix = new Float32Array([ a, b, c, d, tx, ty, 0, 0, 1 ]);
+            /**
+             * The matrix values.
+             *
+             * @name Phaser.GameObjects.Components.TransformMatrix#matrix
+             * @type {Float32Array}
+             * @since 3.0.0
+             */
+            this.matrix = new Float32Array([a, b, c, d, tx, ty, 0, 0, 1]);
 
-        /**
-         * The decomposed matrix.
-         *
-         * @name Phaser.GameObjects.Components.TransformMatrix#decomposedMatrix
-         * @type {object}
-         * @since 3.0.0
-         */
-        this.decomposedMatrix = {
-            translateX: 0,
-            translateY: 0,
-            scaleX: 1,
-            scaleY: 1,
-            rotation: 0
-        };
-    },
+            /**
+             * The decomposed matrix.
+             *
+             * @name Phaser.GameObjects.Components.TransformMatrix#decomposedMatrix
+             * @type {object}
+             * @since 3.0.0
+             */
+            this.decomposedMatrix = {
+                translateX: 0,
+                translateY: 0,
+                scaleX: 1,
+                scaleY: 1,
+                rotation: 0
+            };
+        },
 
     /**
      * The Scale X value.
@@ -79,13 +78,11 @@ var TransformMatrix = new Class({
      */
     a: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[0];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[0] = value;
         }
 
@@ -93,20 +90,18 @@ var TransformMatrix = new Class({
 
     /**
      * The Skew Y value.
-     *
+     * The raw Skew Y value inclusive of rotation.
      * @name Phaser.GameObjects.Components.TransformMatrix#b
      * @type {number}
      * @since 3.4.0
      */
     b: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[1];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[1] = value;
         }
 
@@ -114,20 +109,18 @@ var TransformMatrix = new Class({
 
     /**
      * The Skew X value.
-     *
+     * The raw Skew X value inclusive of rotation.
      * @name Phaser.GameObjects.Components.TransformMatrix#c
      * @type {number}
      * @since 3.4.0
      */
     c: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[2];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[2] = value;
         }
 
@@ -142,13 +135,11 @@ var TransformMatrix = new Class({
      */
     d: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[3];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[3] = value;
         }
 
@@ -163,13 +154,11 @@ var TransformMatrix = new Class({
      */
     e: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[4];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[4] = value;
         }
 
@@ -184,13 +173,11 @@ var TransformMatrix = new Class({
      */
     f: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[5];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[5] = value;
         }
 
@@ -205,13 +192,11 @@ var TransformMatrix = new Class({
      */
     tx: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[4];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[4] = value;
         }
 
@@ -226,13 +211,11 @@ var TransformMatrix = new Class({
      */
     ty: {
 
-        get: function ()
-        {
+        get: function () {
             return this.matrix[5];
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this.matrix[5] = value;
         }
 
@@ -248,8 +231,7 @@ var TransformMatrix = new Class({
      */
     rotation: {
 
-        get: function ()
-        {
+        get: function () {
             return Math.acos(this.a / this.scaleX) * ((Math.atan(-this.c / this.a) < 0) ? -1 : 1);
         }
 
@@ -266,8 +248,7 @@ var TransformMatrix = new Class({
      */
     rotationNormalized: {
 
-        get: function ()
-        {
+        get: function () {
             var matrix = this.matrix;
 
             var a = matrix[0];
@@ -275,20 +256,17 @@ var TransformMatrix = new Class({
             var c = matrix[2];
             var d = matrix[3];
 
-            if (a || b)
-            {
+            if (a || b) {
                 // var r = Math.sqrt(a * a + b * b);
 
                 return (b > 0) ? Math.acos(a / this.scaleX) : -Math.acos(a / this.scaleX);
             }
-            else if (c || d)
-            {
+            else if (c || d) {
                 // var s = Math.sqrt(c * c + d * d);
 
                 return MATH_CONST.TAU - ((d > 0) ? Math.acos(-c / this.scaleY) : -Math.acos(c / this.scaleY));
             }
-            else
-            {
+            else {
                 return 0;
             }
         }
@@ -305,8 +283,7 @@ var TransformMatrix = new Class({
      */
     scaleX: {
 
-        get: function ()
-        {
+        get: function () {
             return Math.sqrt((this.a * this.a) + (this.b * this.b));
         }
 
@@ -322,9 +299,38 @@ var TransformMatrix = new Class({
      */
     scaleY: {
 
-        get: function ()
-        {
+        get: function () {
             return Math.sqrt((this.c * this.c) + (this.d * this.d));
+        }
+
+    },
+
+    /**
+    * The horizontal shear of the Matrix exclusive of rotation.
+    *
+    * @name Phaser.GameObjects.Components.TransformMatrix#skewX
+    * @type {number}
+    * @readonly
+    * @since 3.53.0
+    */
+    skewX: {
+        get: function () {
+            return -Math.atan2(-this.c, this.d);
+        }
+
+    },
+
+    /**
+     * The vertical shear of the Matrix exclusive of rotation.
+     *
+     * @name Phaser.GameObjects.Components.TransformMatrix#skewY
+     * @type {number}
+     * @readonly
+     * @since 3.53.0
+     */
+    skewY: {
+        get: function () {
+            return Math.atan2(this.b, this.a);
         }
 
     },
@@ -337,8 +343,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    loadIdentity: function ()
-    {
+    loadIdentity: function () {
         var matrix = this.matrix;
 
         matrix[0] = 1;
@@ -362,8 +367,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    translate: function (x, y)
-    {
+    translate: function (x, y) {
         var matrix = this.matrix;
 
         matrix[4] = matrix[0] * x + matrix[2] * y + matrix[4];
@@ -383,8 +387,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    scale: function (x, y)
-    {
+    scale: function (x, y) {
         var matrix = this.matrix;
 
         matrix[0] *= x;
@@ -396,8 +399,26 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * Rotate the Matrix.
+     * Set the matrix x & y shear.
      *
+     * Note: Mathematically, rotation, x skew, and y skew are related. As a result, setting 2 or more of those properties results in a mathematically equivalent decomposition which may not match the properties you set; this implementation favors including a rotation component.
+     *
+     * @method Phaser.GameObjects.Components.TransformMatrix#skew
+     * @since 3.52.0
+     *
+     * @param {number} x - The horizontal shear value.
+     * @param {number} y - The verical shear value.
+     *
+     * @return {this} This TransformMatrix.
+    */
+    skew: function (sx, sy) {
+        this.applyITRS(this.tx, this.ty, this.rotation, this.scaleX, this.scaleY, sx, sy);
+        return this;
+    },
+
+    /**
+     * Rotate the Matrix.
+     * See `skew` for discussion on interactions.
      * @method Phaser.GameObjects.Components.TransformMatrix#rotate
      * @since 3.0.0
      *
@@ -405,8 +426,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    rotate: function (angle)
-    {
+    rotate: function (angle) {
         var sin = Math.sin(angle);
         var cos = Math.cos(angle);
 
@@ -440,8 +460,7 @@ var TransformMatrix = new Class({
      *
      * @return {(this|Phaser.GameObjects.Components.TransformMatrix)} Either this TransformMatrix, or the `out` Matrix, if given in the arguments.
      */
-    multiply: function (rhs, out)
-    {
+    multiply: function (rhs, out) {
         var matrix = this.matrix;
         var source = rhs.matrix;
 
@@ -486,8 +505,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    multiplyWithOffset: function (src, offsetX, offsetY)
-    {
+    multiplyWithOffset: function (src, offsetX, offsetY) {
         var matrix = this.matrix;
         var otherMatrix = src.matrix;
 
@@ -533,8 +551,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    transform: function (a, b, c, d, tx, ty)
-    {
+    transform: function (a, b, c, d, tx, ty) {
         var matrix = this.matrix;
 
         var a0 = matrix[0];
@@ -566,8 +583,7 @@ var TransformMatrix = new Class({
      *
      * @return {(Phaser.Geom.Point|Phaser.Math.Vector2|object)} The Point containing the transformed coordinates.
      */
-    transformPoint: function (x, y, point)
-    {
+    transformPoint: function (x, y, point) {
         if (point === undefined) { point = { x: 0, y: 0 }; }
 
         var matrix = this.matrix;
@@ -593,8 +609,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    invert: function ()
-    {
+    invert: function () {
         var matrix = this.matrix;
 
         var a = matrix[0];
@@ -626,8 +641,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    copyFrom: function (src)
-    {
+    copyFrom: function (src) {
         var matrix = this.matrix;
 
         matrix[0] = src.a;
@@ -651,8 +665,7 @@ var TransformMatrix = new Class({
      *
      * @return {this} This TransformMatrix.
      */
-    copyFromArray: function (src)
-    {
+    copyFromArray: function (src) {
         var matrix = this.matrix;
 
         matrix[0] = src[0];
@@ -676,8 +689,7 @@ var TransformMatrix = new Class({
      *
      * @return {CanvasRenderingContext2D} The Canvas Rendering Context.
      */
-    copyToContext: function (ctx)
-    {
+    copyToContext: function (ctx) {
         var matrix = this.matrix;
 
         ctx.transform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
@@ -696,8 +708,7 @@ var TransformMatrix = new Class({
      *
      * @return {CanvasRenderingContext2D} The Canvas Rendering Context.
      */
-    setToContext: function (ctx)
-    {
+    setToContext: function (ctx) {
         var matrix = this.matrix;
 
         ctx.setTransform(matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]);
@@ -717,16 +728,13 @@ var TransformMatrix = new Class({
      *
      * @return {array} An array where elements 0 to 5 contain the values from this matrix.
      */
-    copyToArray: function (out)
-    {
+    copyToArray: function (out) {
         var matrix = this.matrix;
 
-        if (out === undefined)
-        {
-            out = [ matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5] ];
+        if (out === undefined) {
+            out = [matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5]];
         }
-        else
-        {
+        else {
             out[0] = matrix[0];
             out[1] = matrix[1];
             out[2] = matrix[2];
@@ -745,16 +753,15 @@ var TransformMatrix = new Class({
      * @since 3.0.0
      *
      * @param {number} a - The Scale X value.
-     * @param {number} b - The Shear Y value.
-     * @param {number} c - The Shear X value.
+     * @param {number} b - The Shear Y value inclusive of rotation.
+     * @param {number} c - The Shear X value inclusive of rotation.
      * @param {number} d - The Scale Y value.
      * @param {number} tx - The Translate X value.
      * @param {number} ty - The Translate Y value.
      *
      * @return {this} This TransformMatrix.
      */
-    setTransform: function (a, b, c, d, tx, ty)
-    {
+    setTransform: function (a, b, c, d, tx, ty) {
         var matrix = this.matrix;
 
         matrix[0] = a;
@@ -768,19 +775,22 @@ var TransformMatrix = new Class({
     },
 
     /**
-     * Decompose this Matrix into its translation, scale and rotation values using QR decomposition.
+     * Describes the `translate`, `rotation`, `scale`, and `shear` (in that order) of a given `TransformMatrix`. The shear is additive with the rotation.
      *
-     * The result must be applied in the following order to reproduce the current matrix:
-     *
-     * translate -> rotate -> scale
-     *
+     * @inner
+     * @typedef {Object} Phaser.GameObjects.Components.TransformMatrix~DecomposedMatrix
+     * @property {number} translateX - Horizontal displacement.
+     * @property {number} translatey - Vertical displacement.
+     * @property {number} rotation - Rotation in radians.
+     * @property {number} scaleX - Horizontal stretching.
+     * @property {number} scaleY - Vertical stretching.
+     * @property {number} skewX - Horizontal shear exclusive of rotation.
+     * @property {number} skewY - Vertical shear exclusive of rotation.
      * @method Phaser.GameObjects.Components.TransformMatrix#decomposeMatrix
      * @since 3.0.0
-     *
-     * @return {object} The decomposed Matrix.
+     * @return {Phaser.GameObjects.Components.TransformMatrix~DecomposedMatrix} The decomposed Matrix.
      */
-    decomposeMatrix: function ()
-    {
+    decomposeMatrix: function () {
         var decomposedMatrix = this.decomposedMatrix;
 
         var matrix = this.matrix;
@@ -795,39 +805,57 @@ var TransformMatrix = new Class({
         var c = matrix[2];
         var d = matrix[3];
 
-        var determ = a * d - b * c;
+        // var determ = a * d - b * c;
 
         decomposedMatrix.translateX = matrix[4];
         decomposedMatrix.translateY = matrix[5];
+        decomposedMatrix.scaleX = 1;
+        decomposedMatrix.scaleY = 1;
+        decomposedMatrix.rotation = 0;
+        decomposedMatrix.skewX = 0;
+        decomposedMatrix.skewX = 0;
+        var determ = a * d - b * c;
+        var scaleX2 = a * a + b * b;
+        var scaleY2 = c * c + d * d;
+        // if (a || b) {
+        //     var r = Math.sqrt(a * a + b * b);
 
-        if (a || b)
-        {
-            var r = Math.sqrt(a * a + b * b);
-
-            decomposedMatrix.rotation = (b > 0) ? Math.acos(a / r) : -Math.acos(a / r);
-            decomposedMatrix.scaleX = r;
-            decomposedMatrix.scaleY = determ / r;
+        //     decomposedMatrix.rotation = (b > 0) ? Math.acos(a / r) : -Math.acos(a / r);
+        //     decomposedMatrix.scaleX = r;
+        //     decomposedMatrix.scaleY = determ / r;
+        // }
+        if (scaleX2 > scaleY2) {
+            var scaleX = Math.sqrt(scaleX2);
+            decomposedMatrix.scaleX = scaleX;
+            decomposedMatrix.scaleY = determ / scaleX;
+            decomposedMatrix.rotation = (b > 0) ? Math.acos(a / scaleX) : -Math.acos(a / scaleX);
+            decomposedMatrix.skewX = Math.atan((a * c + b * d) / scaleX2);
         }
-        else if (c || d)
-        {
-            var s = Math.sqrt(c * c + d * d);
+        else if (scaleY2 > scaleX2) {
+            //else if (c || d) {
+            // var s = Math.sqrt(c * c + d * d);
 
-            decomposedMatrix.rotation = Math.PI * 0.5 - (d > 0 ? Math.acos(-c / s) : -Math.acos(c / s));
-            decomposedMatrix.scaleX = determ / s;
-            decomposedMatrix.scaleY = s;
+            // decomposedMatrix.rotation = Math.PI * 0.5 - (d > 0 ? Math.acos(-c / s) : -Math.acos(c / s));
+            // decomposedMatrix.scaleX = determ / s;
+            // decomposedMatrix.scaleY = s;
+            var scaleY = Math.sqrt(scaleY2);
+            decomposedMatrix.rotation = Math.PI * 0.5 - (d > 0 ? Math.acos(-c / scaleY) : -Math.acos(c / scaleY));
+            decomposedMatrix.scaleX = determ / scaleY;
+            decomposedMatrix.scaleY = scaleY;
+            decomposedMatrix.skewY = Math.atan((a * c + b * d) / scaleY2);
         }
-        else
-        {
-            decomposedMatrix.rotation = 0;
-            decomposedMatrix.scaleX = 0;
-            decomposedMatrix.scaleY = 0;
+        else {
+            // decomposedMatrix.rotation = 0;
+            // decomposedMatrix.scaleX = 0;
+            // decomposedMatrix.scaleY = 0;
+            decomposedMatrix.scaleX = decomposedMatrix.scaleY = Math.sqrt(scaleX2);
         }
 
         return decomposedMatrix;
     },
 
     /**
-     * Apply the identity, translate, rotate and scale operations on the Matrix.
+     * Apply the identity, translate, rotate ,scale and skew operations on the Matrix.
      *
      * @method Phaser.GameObjects.Components.TransformMatrix#applyITRS
      * @since 3.0.0
@@ -837,25 +865,31 @@ var TransformMatrix = new Class({
      * @param {number} rotation - The angle of rotation in radians.
      * @param {number} scaleX - The horizontal scale.
      * @param {number} scaleY - The vertical scale.
-     *
+     * @param {number} [skewX=0] - The horizontal shear.
+     * @param {number} [skewY=0] - The vertical shear.
      * @return {this} This TransformMatrix.
      */
-    applyITRS: function (x, y, rotation, scaleX, scaleY)
-    {
+    applyITRS: function (x, y, rotation, scaleX, scaleY, skewX, skewY) {
+        if (skewX === undefined) { skewX = 0; }
+        if (skewY === undefined) { skewY = 0; }
         var matrix = this.matrix;
 
-        var radianSin = Math.sin(rotation);
-        var radianCos = Math.cos(rotation);
+        // var radianSin = Math.sin(rotation);
+        // var radianCos = Math.cos(rotation);
 
         // Translate
         matrix[4] = x;
         matrix[5] = y;
 
         // Rotate and Scale
-        matrix[0] = radianCos * scaleX;
-        matrix[1] = radianSin * scaleX;
-        matrix[2] = -radianSin * scaleY;
-        matrix[3] = radianCos * scaleY;
+        // matrix[0] = radianCos * scaleX;
+        // matrix[1] = radianSin * scaleX;
+        // matrix[2] = -radianSin * scaleY;
+        // matrix[3] = radianCos * scaleY;
+        matrix[0] = Math.cos(rotation - skewY) * scaleX;
+        matrix[1] = Math.sin(rotation - skewY) * scaleX;
+        matrix[2] = -Math.sin(rotation + skewX) * scaleY;
+        matrix[3] = Math.cos(rotation + skewX) * scaleY;
 
         return this;
     },
@@ -875,8 +909,7 @@ var TransformMatrix = new Class({
      *
      * @return {Phaser.Math.Vector2} The coordinates, inverse-transformed through this matrix.
      */
-    applyInverse: function (x, y, output)
-    {
+    applyInverse: function (x, y, output) {
         if (output === undefined) { output = new Vector2(); }
 
         var matrix = this.matrix;
@@ -908,8 +941,7 @@ var TransformMatrix = new Class({
      *
      * @return {number} The calculated x value.
      */
-    getX: function (x, y)
-    {
+    getX: function (x, y) {
         return x * this.a + y * this.c + this.e;
     },
 
@@ -925,8 +957,7 @@ var TransformMatrix = new Class({
      *
      * @return {number} The calculated y value.
      */
-    getY: function (x, y)
-    {
+    getY: function (x, y) {
         return x * this.b + y * this.d + this.f;
     },
 
@@ -944,12 +975,10 @@ var TransformMatrix = new Class({
      *
      * @return {number} The calculated x value.
      */
-    getXRound: function (x, y, round)
-    {
+    getXRound: function (x, y, round) {
         var v = this.getX(x, y);
 
-        if (round)
-        {
+        if (round) {
             v = Math.round(v);
         }
 
@@ -970,12 +999,10 @@ var TransformMatrix = new Class({
      *
      * @return {number} The calculated y value.
      */
-    getYRound: function (x, y, round)
-    {
+    getYRound: function (x, y, round) {
         var v = this.getY(x, y);
 
-        if (round)
-        {
+        if (round) {
             v = Math.round(v);
         }
 
@@ -990,8 +1017,7 @@ var TransformMatrix = new Class({
      *
      * @return {string} A string containing the CSS Transform matrix values.
      */
-    getCSSMatrix: function ()
-    {
+    getCSSMatrix: function () {
         var m = this.matrix;
 
         return 'matrix(' + m[0] + ',' + m[1] + ',' + m[2] + ',' + m[3] + ',' + m[4] + ',' + m[5] + ')';
@@ -1003,8 +1029,7 @@ var TransformMatrix = new Class({
      * @method Phaser.GameObjects.Components.TransformMatrix#destroy
      * @since 3.4.0
      */
-    destroy: function ()
-    {
+    destroy: function () {
         this.matrix = null;
         this.decomposedMatrix = null;
     }
