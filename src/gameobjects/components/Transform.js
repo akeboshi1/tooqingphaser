@@ -166,12 +166,6 @@ var Transform = {
         },
         set: function (value) {
             this._skewX = value;
-            if (value === 0) {
-                this.renderFlags &= ~_FLAG;
-            }
-            else {
-                this.renderFlags |= _FLAG;
-            }
         }
     },
     /**
@@ -188,12 +182,6 @@ var Transform = {
         },
         set: function (value) {
             this._skewY = value;
-            if (value === 0) {
-                this.renderFlags &= ~_FLAG;
-            }
-            else {
-                this.renderFlags |= _FLAG;
-            }
         }
     },
 
@@ -571,7 +559,7 @@ var Transform = {
         tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY, this._skewX, this._skewY);
 
         while (parent) {
-            parentMatrix.applyITRS(parent.x, parent.y, parent._rotation, parent._scaleX, parent._scaleY, this._skewX, this._skewY);
+            parentMatrix.applyITRS(parent.x, parent.y, parent._rotation, parent._scaleX, parent._scaleY, parent._skewX, parent._skewY);
 
             parentMatrix.multiply(tempMatrix, tempMatrix);
 

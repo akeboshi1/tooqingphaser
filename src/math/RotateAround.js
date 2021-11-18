@@ -31,6 +31,7 @@ var RotateAround = function (point, x, y, angle, skewX, skewY) {
     var tx = point.x - x;
     var ty = point.y - y;
 
+
     point.x = tx * Math.cos(angle - skewY) - ty * Math.sin(angle + skewX) + x;
     point.y = tx * Math.sin(angle - skewY) + ty * Math.cos(angle + skewX) + y;
 
