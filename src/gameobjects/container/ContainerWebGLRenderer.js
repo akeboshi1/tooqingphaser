@@ -19,39 +19,35 @@
  * @param {Phaser.Cameras.Scene2D.Camera} camera - The Camera that is rendering the Game Object.
  * @param {Phaser.GameObjects.Components.TransformMatrix} parentMatrix - This transform matrix is defined if the game object is nested
  */
-var ContainerWebGLRenderer = function (renderer, container, camera, parentMatrix)
-{
+var ContainerWebGLRenderer = function (renderer, container, camera, parentMatrix) {
     camera.addToRenderList(container);
 
     var children = container.list;
     var childCount = children.length;
 
-    if (childCount === 0)
-    {
+    if (childCount === 0) {
         return;
     }
 
     var transformMatrix = container.localTransform;
 
-    if (parentMatrix)
-    {
+    if (parentMatrix) {
         transformMatrix.loadIdentity();
         transformMatrix.multiply(parentMatrix);
         transformMatrix.translate(container.x, container.y);
         transformMatrix.rotate(container.rotation);
         transformMatrix.scale(container.scaleX, container.scaleY);
+        transformMatrix.skew(container.skewX, container.skewY);
     }
-    else
-    {
-        transformMatrix.applyITRS(container.x, container.y, container.rotation, container.scaleX, container.scaleY);
+    else {
+        transformMatrix.applyITRS(container.x, container.y, container.rotation, container.scaleX, container.scaleY, container.skewX, container.skewY);
     }
 
     renderer.pipelines.preBatch(container);
 
     var containerHasBlendMode = (container.blendMode !== -1);
 
-    if (!containerHasBlendMode)
-    {
+    if (!containerHasBlendMode) {
         //  If Container is SKIP_TEST then set blend mode to be Normal
         renderer.setBlendMode(0);
     }
@@ -61,12 +57,10 @@ var ContainerWebGLRenderer = function (renderer, container, camera, parentMatrix
     var scrollFactorX = container.scrollFactorX;
     var scrollFactorY = container.scrollFactorY;
 
-    for (var i = 0; i < childCount; i++)
-    {
+    for (var i = 0; i < childCount; i++) {
         var child = children[i];
 
-        if (!child.willRender(camera))
-        {
+        if (!child.willRender(camera)) {
             continue;
         }
 
@@ -75,15 +69,13 @@ var ContainerWebGLRenderer = function (renderer, container, camera, parentMatrix
         var childAlphaBottomLeft;
         var childAlphaBottomRight;
 
-        if (child.alphaTopLeft !== undefined)
-        {
+        if (child.alphaTopLeft !== undefined) {
             childAlphaTopLeft = child.alphaTopLeft;
             childAlphaTopRight = child.alphaTopRight;
             childAlphaBottomLeft = child.alphaBottomLeft;
             childAlphaBottomRight = child.alphaBottomRight;
         }
-        else
-        {
+        else {
             var childAlpha = child.alpha;
 
             childAlphaTopLeft = childAlpha;
@@ -95,23 +87,20 @@ var ContainerWebGLRenderer = function (renderer, container, camera, parentMatrix
         var childScrollFactorX = child.scrollFactorX;
         var childScrollFactorY = child.scrollFactorY;
 
-        if (!containerHasBlendMode && child.blendMode !== renderer.currentBlendMode)
-        {
+        if (!containerHasBlendMode && child.blendMode !== renderer.currentBlendMode) {
             //  If Container doesn't have its own blend mode, then a child can have one
             renderer.setBlendMode(child.blendMode);
         }
 
         var mask = child.mask;
 
-        if (mask)
-        {
+        if (mask) {
             mask.preRenderWebGL(renderer, child, camera);
         }
 
         var type = child.type;
 
-        if (type !== renderer.currentType)
-        {
+        if (type !== renderer.currentType) {
             renderer.newType = true;
             renderer.currentType = type;
         }
@@ -132,8 +121,7 @@ var ContainerWebGLRenderer = function (renderer, container, camera, parentMatrix
 
         child.setScrollFactor(childScrollFactorX, childScrollFactorY);
 
-        if (mask)
-        {
+        if (mask) {
             mask.postRenderWebGL(renderer, camera);
         }
 
