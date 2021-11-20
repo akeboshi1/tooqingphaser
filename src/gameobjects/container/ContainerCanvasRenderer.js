@@ -35,7 +35,7 @@ var ContainerCanvasRenderer = function (renderer, container, camera, parentMatri
         transformMatrix.translate(container.x, container.y);
         transformMatrix.rotate(container.rotation);
         transformMatrix.scale(container.scaleX, container.scaleY);
-        transformMatrix.skew(container.skewX, container.skewY);
+        // transformMatrix.skew(container.skewX, container.skewY);
     }
     else {
         transformMatrix.applyITRS(container.x, container.y, container.rotation, container.scaleX, container.scaleY, container.skewX, container.skewY);
