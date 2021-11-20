@@ -56,6 +56,27 @@ var Transform = {
      */
     _rotation: 0,
 
+
+    /**
+     * The horizontal skew of this GameObject.
+     *
+     * @name Phaser.GameObjects.Components.Transform#_skewX
+     * @type {number}
+     * @default 0
+     * @since 3.52.0
+    */
+    _skewX: 0,
+
+    /**
+     * The vertical skew of this GameObject.
+     *
+     * @name Phaser.GameObjects.Components.Transform#_skewY
+     * @type {number}
+     * @default 0
+     * @since 3.52.0
+     */
+    _skewY: 0,
+
     /**
      * The x position of this Game Object.
      *
@@ -113,26 +134,54 @@ var Transform = {
      */
     scale: {
 
-        get: function ()
-        {
+        get: function () {
             return (this._scaleX + this._scaleY) / 2;
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this._scaleX = value;
             this._scaleY = value;
 
-            if (value === 0)
-            {
+            if (value === 0) {
                 this.renderFlags &= ~_FLAG;
             }
-            else
-            {
+            else {
                 this.renderFlags |= _FLAG;
             }
         }
 
+    },
+    /**
+     * The horizontal skewX of this Game Object.
+     *
+     * @name Phaser.GameObjects.Components.Transform#skewX
+     * @type {number}
+     * @default 0
+     * @since 3.0.0
+    */
+    skewX: {
+        get: function () {
+            return this._skewX;
+        },
+        set: function (value) {
+            this._skewX = value;
+        }
+    },
+    /**
+     * The vertical skewY of this Game Object.
+     *
+     * @name Phaser.GameObjects.Components.Transform#skewY
+     * @type {number}
+     * @default 0
+     * @since 3.0.0
+    */
+    skewY: {
+        get: function () {
+            return this._skewY;
+        },
+        set: function (value) {
+            this._skewY = value;
+        }
     },
 
     /**
@@ -145,21 +194,17 @@ var Transform = {
      */
     scaleX: {
 
-        get: function ()
-        {
+        get: function () {
             return this._scaleX;
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this._scaleX = value;
 
-            if (value === 0)
-            {
+            if (value === 0) {
                 this.renderFlags &= ~_FLAG;
             }
-            else
-            {
+            else {
                 this.renderFlags |= _FLAG;
             }
         }
@@ -176,21 +221,17 @@ var Transform = {
      */
     scaleY: {
 
-        get: function ()
-        {
+        get: function () {
             return this._scaleY;
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             this._scaleY = value;
 
-            if (value === 0)
-            {
+            if (value === 0) {
                 this.renderFlags &= ~_FLAG;
             }
-            else
-            {
+            else {
                 this.renderFlags |= _FLAG;
             }
         }
@@ -212,13 +253,11 @@ var Transform = {
      */
     angle: {
 
-        get: function ()
-        {
+        get: function () {
             return WrapAngleDegrees(this._rotation * MATH_CONST.RAD_TO_DEG);
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             //  value is in degrees
             this.rotation = WrapAngleDegrees(value) * MATH_CONST.DEG_TO_RAD;
         }
@@ -239,13 +278,11 @@ var Transform = {
      */
     rotation: {
 
-        get: function ()
-        {
+        get: function () {
             return this._rotation;
         },
 
-        set: function (value)
-        {
+        set: function (value) {
             //  value is in radians
             this._rotation = WrapAngle(value);
         }
@@ -264,8 +301,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setPosition: function (x, y, z, w)
-    {
+    setPosition: function (x, y, z, w) {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = x; }
         if (z === undefined) { z = 0; }
@@ -289,8 +325,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    copyPosition: function (source)
-    {
+    copyPosition: function (source) {
         if (source.x !== undefined) { this.x = source.x; }
         if (source.y !== undefined) { this.y = source.y; }
         if (source.z !== undefined) { this.z = source.z; }
@@ -318,8 +353,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setRandomPosition: function (x, y, width, height)
-    {
+    setRandomPosition: function (x, y, width, height) {
         if (x === undefined) { x = 0; }
         if (y === undefined) { y = 0; }
         if (width === undefined) { width = this.scene.sys.scale.width; }
@@ -341,11 +375,31 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setRotation: function (radians)
-    {
+    setRotation: function (radians) {
         if (radians === undefined) { radians = 0; }
 
         this.rotation = radians;
+
+        return this;
+    },
+
+    /**
+    * Sets the horizontal & vertical skew of this Game Object.
+    *
+    * @method Phaser.GameObjects.Components.Transform#setSkew
+    * @since 3.52.0
+    *
+    * @param {number} [sx=0] - The horizontal skew.
+    * @param {number} [sy=0] - The vertical skew.
+    *
+    * @return {this} This Game Object instance.
+    */
+    setSkew: function (sx, sy) {
+        if (sx === undefined) { sx = 0; }
+        if (sy === undefined) { sy = 0; }
+
+        this.skewX = sx;
+        this.skewY = sy;
 
         return this;
     },
@@ -360,8 +414,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setAngle: function (degrees)
-    {
+    setAngle: function (degrees) {
         if (degrees === undefined) { degrees = 0; }
 
         this.angle = degrees;
@@ -380,8 +433,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setScale: function (x, y)
-    {
+    setScale: function (x, y) {
         if (x === undefined) { x = 1; }
         if (y === undefined) { y = x; }
 
@@ -401,8 +453,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setX: function (value)
-    {
+    setX: function (value) {
         if (value === undefined) { value = 0; }
 
         this.x = value;
@@ -420,8 +471,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setY: function (value)
-    {
+    setY: function (value) {
         if (value === undefined) { value = 0; }
 
         this.y = value;
@@ -442,8 +492,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setZ: function (value)
-    {
+    setZ: function (value) {
         if (value === undefined) { value = 0; }
 
         this.z = value;
@@ -461,8 +510,7 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setW: function (value)
-    {
+    setW: function (value) {
         if (value === undefined) { value = 0; }
 
         this.w = value;
@@ -480,11 +528,10 @@ var Transform = {
      *
      * @return {Phaser.GameObjects.Components.TransformMatrix} The populated Transform Matrix.
      */
-    getLocalTransformMatrix: function (tempMatrix)
-    {
+    getLocalTransformMatrix: function (tempMatrix) {
         if (tempMatrix === undefined) { tempMatrix = new TransformMatrix(); }
 
-        return tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY);
+        return tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY, this._skewX, this._skewY);
     },
 
     /**
@@ -498,23 +545,20 @@ var Transform = {
      *
      * @return {Phaser.GameObjects.Components.TransformMatrix} The populated Transform Matrix.
      */
-    getWorldTransformMatrix: function (tempMatrix, parentMatrix)
-    {
+    getWorldTransformMatrix: function (tempMatrix, parentMatrix) {
         if (tempMatrix === undefined) { tempMatrix = new TransformMatrix(); }
         if (parentMatrix === undefined) { parentMatrix = new TransformMatrix(); }
 
         var parent = this.parentContainer;
 
-        if (!parent)
-        {
+        if (!parent) {
             return this.getLocalTransformMatrix(tempMatrix);
         }
 
-        tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY);
+        tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY, this._skewX, this._skewY);
 
-        while (parent)
-        {
-            parentMatrix.applyITRS(parent.x, parent.y, parent._rotation, parent._scaleX, parent._scaleY);
+        while (parent) {
+            parentMatrix.applyITRS(parent.x, parent.y, parent._rotation, parent._scaleX, parent._scaleY, parent._skewX, parent._skewY);
 
             parentMatrix.multiply(tempMatrix, tempMatrix);
 
@@ -544,8 +588,7 @@ var Transform = {
      *
      * @return {Phaser.Math.Vector2} The translated point.
      */
-    getLocalPoint: function (x, y, point, camera)
-    {
+    getLocalPoint: function (x, y, point, camera) {
         if (!point) { point = new Vector2(); }
         if (!camera) { camera = this.scene.sys.cameras.main; }
 
@@ -555,18 +598,15 @@ var Transform = {
         var px = x + (csx * this.scrollFactorX) - csx;
         var py = y + (csy * this.scrollFactorY) - csy;
 
-        if (this.parentContainer)
-        {
+        if (this.parentContainer) {
             this.getWorldTransformMatrix().applyInverse(px, py, point);
         }
-        else
-        {
+        else {
             TransformXY(px, py, this.x, this.y, this.rotation, this.scaleX, this.scaleY, point);
         }
 
         //  Normalize origin
-        if (this._originComponent)
-        {
+        if (this._originComponent) {
             point.x += this._displayOriginX;
             point.y += this._displayOriginY;
         }
@@ -584,14 +624,12 @@ var Transform = {
      *
      * @return {number} The sum total rotation, in radians, of all parent containers of this Game Object.
      */
-    getParentRotation: function ()
-    {
+    getParentRotation: function () {
         var rotation = 0;
 
         var parent = this.parentContainer;
 
-        while (parent)
-        {
+        while (parent) {
             rotation += parent.rotation;
 
             parent = parent.parentContainer;

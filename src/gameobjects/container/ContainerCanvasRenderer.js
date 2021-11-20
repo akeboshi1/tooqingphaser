@@ -31,7 +31,6 @@ var ContainerCanvasRenderer = function (renderer, container, camera, parentMatri
     }
 
     var transformMatrix = container.localTransform;
-
     if (parentMatrix)
     {
         transformMatrix.loadIdentity();
@@ -39,6 +38,7 @@ var ContainerCanvasRenderer = function (renderer, container, camera, parentMatri
         transformMatrix.translate(container.x, container.y);
         transformMatrix.rotate(container.rotation);
         transformMatrix.scale(container.scaleX, container.scaleY);
+        // transformMatrix.skew(container.skewX, container.skewY);
     }
     else
     {
