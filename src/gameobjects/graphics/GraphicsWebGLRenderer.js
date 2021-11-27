@@ -57,11 +57,16 @@ var GraphicsWebGLRenderer = function (renderer, src, camera, parentMatrix)
     // 利用一个临时矩阵把父矩阵给拷贝下来，并把自己的矩阵倾斜参数加入计算
     // 1:graphics的倾斜参数实际没有任何作用，并没有参加渲染计算
     // 2:如果在上一级的conatinerwebglRender中，在父矩阵中加入倾斜参数，会导致龙骨的bug，（todo）这个需要详细调整龙骨代码
-    const tmpMatrix = _tempMatrix1.loadIdentity();
-    tmpMatrix.multiply(parentMatrix);
+    // 3:mask会存在没有父矩阵的情况，需要判断
+    let tmpMatrix;
+    if(parentMatrix){
+        tmpMatrix= _tempMatrix1.loadIdentity();
+        tmpMatrix.multiply(parentMatrix);
+        tmpMatrix.c += src.skewX;
+        tmpMatrix.b += src.skewY; 
+    }
 
-    tmpMatrix.c += src.skewX;
-    tmpMatrix.b += src.skewY; 
+    
 
     var calcMatrix = GetCalcMatrix(src, camera, tmpMatrix).calc;
 
