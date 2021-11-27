@@ -25,6 +25,7 @@ var Path = function (x, y, width)
 
 var matrixStack = [];
 var tempMatrix = new TransformMatrix();
+var _tempMatrix1 = new TransformMatrix();
 
 /**
  * Renders this Game Object with the WebGL Renderer to the given Camera.
@@ -53,7 +54,16 @@ var GraphicsWebGLRenderer = function (renderer, src, camera, parentMatrix)
 
     renderer.pipelines.preBatch(src);
 
-    var calcMatrix = GetCalcMatrix(src, camera, parentMatrix).calc;
+    // 利用一个临时矩阵把父矩阵给拷贝下来，并把自己的矩阵倾斜参数加入计算
+    // 1:graphics的倾斜参数实际没有任何作用，并没有参加渲染计算
+    // 2:如果在上一级的conatinerwebglRender中，在父矩阵中加入倾斜参数，会导致龙骨的bug，（todo）这个需要详细调整龙骨代码
+    const tmpMatrix = _tempMatrix1.loadIdentity();
+    tmpMatrix.multiply(parentMatrix);
+
+    tmpMatrix.c += src.skewX;
+    tmpMatrix.b += src.skewY; 
+
+    var calcMatrix = GetCalcMatrix(src, camera, tmpMatrix).calc;
 
     var currentMatrix = tempMatrix.loadIdentity();
 
