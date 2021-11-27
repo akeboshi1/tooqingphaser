@@ -1,5 +1,5 @@
-# 项目实际地址：https://github.com/ApowoGames/phaser
-# clone地址：git@github.com:ApowoGames/phaser3.git
+# 项目实际地址：https://github.com/akeboshi1/tooqingphaser.git
+# clone地址：https://github.com/akeboshi1/tooqingphaser.git
 
 # 更新步骤：
 
