@@ -3,16 +3,18 @@
 
 # 更新步骤：
 
-1. git commit ...
-2. git push
-3. git fetch upstream
-4. git merge upstream/master
-5. yarn dist
-6. yarn tsgen
-7. (upgrade version in package.json)
-8. git commit ...
-9. git push
-10. git push gitlab master
+1. git add .
+2. git commit ...
+3. git push
+4. git fetch upstream
+5. git merge upstream/master
+6. yarn dist
+7. yarn tsgen
+8. (upgrade version in package.json)
+9. git add .
+10. git commit ...
+11. git push
+12. git push gitlab master
 
 # Phaser - HTML5 Game Framework
 
