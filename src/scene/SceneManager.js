@@ -895,6 +895,33 @@ var SceneManager = new Class({
     },
 
     /**
+     * Determines whether a Scene is in pending list.
+     *
+     * @method Phaser.Scenes.SceneManager#isPending
+     * @since 3.0.0
+     *
+     * @param {string} key - The Scene to check.
+     *
+     * @return {boolean} In pending list.
+     */
+    isPending: function (key)
+    {
+        var i;
+        var entry;
+
+        for (i = 0; i < this._pending.length; i++)
+        {
+            entry = this._pending[i];
+
+            if (entry.key === key)
+            {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    /**
      * Determines whether a Scene is running.
      *
      * @method Phaser.Scenes.SceneManager#isActive
