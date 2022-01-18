@@ -159,6 +159,7 @@
   */
  FileTypesManager.register('script', function (key, url, type, xhrSettings)
  {
+     if(!type) type = 'script';
      if (Array.isArray(key))
      {
          for (var i = 0; i < key.length; i++)
