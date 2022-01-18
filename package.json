@@ -1,6 +1,6 @@
 {
     "name": "phaser3",
-    "version": "0.4.26",
+    "version": "0.4.27",
     "description": "phaser3",
     "main": "./dist/phaser.js",
     "types": "./types/phaser3.d.ts",
