@@ -243,13 +243,15 @@ var MultiPipeline = new Class({
      * @param {Phaser.GameObjects.Components.TransformMatrix} [parentTransformMatrix] - The transform matrix of the parent container, if set.
      */
     batchSprite: function (gameObject, camera, parentTransformMatrix) {
+        var frame = gameObject.frame;
+        if(!frame||!frame.source) return;
         this.manager.set(this, gameObject);
 
         var camMatrix = this._tempMatrix1;
         var spriteMatrix = this._tempMatrix2;
         var calcMatrix = this._tempMatrix3;
 
-        var frame = gameObject.frame;
+       
         var texture = frame.glTexture;
 
         var u0 = frame.u0;

@@ -13,7 +13,7 @@
  * @function Phaser.Utils.NOOP
  * @since 3.0.0
  */
-var NOOP = function ()
+var NOOP = function (value=null)
 {
     //  NOOP
 };

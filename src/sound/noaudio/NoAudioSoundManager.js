@@ -222,7 +222,7 @@
       * @method Phaser.Sound.NoAudioSoundManager#remove
       * @since 3.0.0
       *
-      * @param {Phaser.Sound.NoAudioSound} sound - The sound object to remove.
+      * @param {Phaser.Sound.BaseSound} sound - The sound object to remove.
       *
       * @return {boolean} True if the sound was removed successfully, otherwise false.
       */
@@ -285,17 +285,23 @@
       *
       * @method Phaser.Sound.NoAudioSoundManager#setRate
       * @since 3.0.0
+      * @return {Phaser.Sound.NoAudioSoundManager} This Sound Manager.
       */
-     setRate: NOOP,
- 
+     setRate: function (value=null)
+     {
+        return this;
+     },
      /**
       * This method does nothing in the No Audio Sound Manager.
       *
       * @method Phaser.Sound.NoAudioSoundManager#setDetune
       * @since 3.0.0
+      * @return {Phaser.Sound.NoAudioSoundManager} This Sound Manager.
       */
-     setDetune: NOOP,
- 
+     setDetune: function (value=null)
+     {
+         return this;
+     },
      /**
       * This method does nothing in the No Audio Sound Manager.
       *
