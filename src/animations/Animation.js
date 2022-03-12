@@ -386,6 +386,8 @@ var Animation = new Class({
         {
             textureKey = frames;
 
+            if(!this.defaultTextureKey) this.defaultTextureKey = textureKey;
+
             var texture = textureManager.get(textureKey);
             var frameKeys = texture.getFrameNames();
 
@@ -417,6 +419,8 @@ var Animation = new Class({
             {
                 continue;
             }
+
+            this.defaultTextureKey = key;
 
             //  Could be an integer or a string
             var frame = GetValue(item, 'frame', 0);

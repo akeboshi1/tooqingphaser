@@ -121,9 +121,10 @@ var Size = {
     setSizeToFrame: function (frame)
     {
         if (frame === undefined) { frame = this.frame; }
-
-        this.width = frame.realWidth;
-        this.height = frame.realHeight;
+        if(frame.data) {
+            this.width = frame.realWidth;
+            this.height = frame.realHeight;
+        }
 
         return this;
     },

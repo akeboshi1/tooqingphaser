@@ -157,12 +157,13 @@
   *
   * @param {(string|Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig|Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig[])} key - The key to use for this file, or a file configuration object, or array of them.
   * @param {string} [url] - The absolute or relative URL to load this file from. If undefined or `null` it will be set to `<key>.png`, i.e. if `key` was "alien" then the URL will be "alien.png".
+  * @param {boolean} [isStatic=false] - 是否是静态资源 
   * @param {Phaser.Types.Loader.FileTypes.ImageFrameConfig} [frameConfig] - The frame configuration object. At a minimum it should have a `frameWidth` property.
   * @param {Phaser.Types.Loader.XHRSettingsObject} [xhrSettings] - An XHR Settings configuration object. Used in replacement of the Loaders default XHR Settings.
   *
   * @return {this} The Loader instance.
   */
- FileTypesManager.register('spritesheet', function (key, url, frameConfig, xhrSettings)
+ FileTypesManager.register('spritesheet', function (key, url, isStatic, frameConfig, xhrSettings)
  {
      if (Array.isArray(key))
      {

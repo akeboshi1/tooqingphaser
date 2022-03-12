@@ -28,8 +28,9 @@
      xhr.open('GET', file.src, config.async, config.user, config.password);
  
      xhr.responseType = file.xhrSettings.responseType;
-     xhr.timeout = config.timeout;
- 
+     xhr.timeout = config.timeout || 20000;
+     // xmlrequest retry limit times
+     xhr.retryTimes = config.retryTimes || 1;
      if (config.headers)
      {
          for (var key in config.headers)
@@ -63,6 +64,7 @@
      xhr.onload = file.onLoad.bind(file, xhr);
      xhr.onerror = file.onError.bind(file, xhr);
      xhr.onprogress = file.onProgress.bind(file);
+     xhr.ontimeout = file.onTimeout.bind(file, xhr);
  
      //  This is the only standard method, the ones above are browser additions (maybe not universal?)
      // xhr.onreadystatechange

@@ -67,8 +67,19 @@
           * @since 3.0.0
           */
          this.key = GetFastValue(fileConfig, 'key', false);
- 
+
+
+          /**
+          * loader timeout load times
+          *
+          * @name Phaser.Loader.File#loadTimes
+          * @type {number}
+          * @since 3.0.0
+          */
+           this.loadTimes = GetFastValue(fileConfig, "loadTimes", 0);
+
          var loadKey = this.key;
+         
  
          if (loader.prefix && loader.prefix !== '')
          {
@@ -347,6 +358,26 @@
  
          this.loader.nextFile(this, false);
      },
+
+
+      /**
+      * Called when the file finishes loading.
+      *
+      * @method Phaser.Loader.File#onTimeout
+      * @since 3.0.0
+      */
+       onTimeout: function ()
+       {
+           if(this.loadTimes > this.xhrLoader.retryTimes) {
+              // 超过重试次数，则走error流程，不再重试,并下载下一个file文件
+              this.onError();
+              return;
+           }
+           this.loadTimes++;
+
+           this.state = CONST.FILE_PENDING;
+           this.load();
+       },  
  
      /**
       * Called during the file load progress. Is sent a DOM ProgressEvent.

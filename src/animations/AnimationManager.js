@@ -88,6 +88,18 @@ var AnimationManager = new Class({
         this.anims = new CustomMap();
 
         /**
+         * The Animations registered in the Animation Manager.
+         *
+         * This map should be modified with the {@link #add} and {@link #create} methods of the Animation Manager.
+         *
+         * @name Phaser.Animations.AnimationManager#textureKeyMap
+         * @type {Phaser.Structs.Map.<string, string[]>}
+         * @protected
+         * @since 3.0.0
+         */
+        this.textureKeyMap = new CustomMap();
+
+        /**
          * A list of animation mix times.
          *
          * See the {@link #setMix} method for more details.
@@ -530,6 +542,16 @@ var AnimationManager = new Class({
 
                 this.emit(Events.ADD_ANIMATION, key, anim);
             }
+
+            const defaultTextureKey = anim.defaultTextureKey;
+            let animsList = this.textureKeyMap.get(defaultTextureKey);
+            if (!animsList) {
+                animsList = [];
+                animsList.push(key);
+                this.textureKeyMap.set(defaultTextureKey,animsList);
+            } else {
+                if (animsList.indexOf(key) === -1) animsList.push(key);
+            }
         }
 
         return anim;
@@ -931,6 +953,21 @@ var AnimationManager = new Class({
     },
 
     /**
+     * @method Phaser.Animations.AnimationManager#removeByTextureKey
+     * @fires Phaser.Animations.Events#REMOVE_ANIMATION
+     * @param {string} key 
+     */
+    removeByTextureKey: function (key)
+    {
+        const animsKeyList = this.textureKeyMap.get(key);
+        if (!animsKeyList) return;
+        animsKeyList.forEach((animKey) => {
+            const animation = this.get(animKey);
+            if (animation) this.remove(animKey);
+        });
+    },
+
+    /**
      * Resume all paused animations.
      *
      * @method Phaser.Animations.AnimationManager#resumeAll
@@ -993,6 +1030,7 @@ var AnimationManager = new Class({
      */
     destroy: function ()
     {
+        this.textureKeyMap.clear();
         this.anims.clear();
         this.mixes.clear();
 
