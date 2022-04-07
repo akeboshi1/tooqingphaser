@@ -69,7 +69,15 @@
      //  This is the only standard method, the ones above are browser additions (maybe not universal?)
      // xhr.onreadystatechange
  
-     xhr.send();
+     try {
+        xhr.send();
+      } catch (error) {
+        console.error("xhr load error:"+error);
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+      }
+      
+     
  
      return xhr;
  };
