@@ -72,13 +72,11 @@
      try {
         xhr.send();
       } catch (error) {
-        console.error("xhr load error:"+error);
-        // expected output: ReferenceError: nonExistentFunction is not defined
-        // Note - error messages will vary depending on browser
+        console.error("xhr load error:" + error);
+        xhr.onerror(xhr,error);
+        throw error;
       }
-      
-     
- 
+
      return xhr;
  };
  
