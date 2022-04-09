@@ -268,6 +268,7 @@
              this.xhrLoader.onload = undefined;
              this.xhrLoader.onerror = undefined;
              this.xhrLoader.onprogress = undefined;
+             this.xhrLoader.onTimeout = undefined;
          }
      },
  
@@ -291,21 +292,10 @@
              this.state = CONST.FILE_LOADING;
  
              this.src = GetURL(this, this.loader.baseURL);
-             var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-             '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-             '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-             '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-             '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-             '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
              if (this.src.indexOf('data:') === 0)
              {
                  console.warn('Local data URIs are not supported: ' + this.key);
              }
-            //  else if(pattern.test(this.src)){
-            //      console.warn(`${this.src}` + ' is not a valid URL');
-            //      this.resetXHR();
-            //      this.loader.nextFile(this, false);
-            //  }
              else
              {
                  //  The creation of this XHRLoader starts the load process going.
@@ -314,8 +304,12 @@
                  // xhr.onload = this.onLoad
                  // xhr.onerror = this.onError
                  // xhr.onprogress = this.onProgress
- 
-                 this.xhrLoader = XHRLoader(this, this.loader.xhr);
+                 if( this.xhrLoader ){
+                    this.xhrLoader = XHRLoader(this, this.loader.xhr, this.xhrLoader);
+                 } else {
+                    this.xhrLoader = XHRLoader(this, this.loader.xhr);
+                 }
+
              }
          }
      },
@@ -383,6 +377,7 @@
               this.onError();
               return;
            }
+           this.resetXHR();
            this.loadTimes++;
 
            this.state = CONST.FILE_PENDING;

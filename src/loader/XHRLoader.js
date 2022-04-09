@@ -16,14 +16,20 @@
   *
   * @param {Phaser.Loader.File} file - The File to download.
   * @param {Phaser.Types.Loader.XHRSettingsObject} globalXHRSettings - The global XHRSettings object.
-  *
+  * @param {XMLHttpRequest} [xhrLoader]
   * @return {XMLHttpRequest} The XHR object.
   */
- var XHRLoader = function (file, globalXHRSettings)
+ var XHRLoader = function (file, globalXHRSettings, xhrLoader)
  {
      var config = MergeXHRSettings(globalXHRSettings, file.xhrSettings);
  
-     var xhr = new XMLHttpRequest();
+     var xhr ;
+
+     if(xhrLoader){
+         xhr = xhrLoader;
+     } else {
+       xhr = new XMLHttpRequest();
+     }    
  
      xhr.open('GET', file.src, config.async, config.user, config.password);
  
